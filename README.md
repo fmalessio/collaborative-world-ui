@@ -21,3 +21,7 @@ npm install @capacitor/core @capacitor/cli\
 angular.json > replace all "app:" for "com.fmalessio.collaborativeworld.ui:"\
 ionic build\
 ionic capacitor add android\
+
+### Comandos útiles
+ionic generate module [name] --routing=true/false\
+ionic generate module [name] --route [name] --module app.module
