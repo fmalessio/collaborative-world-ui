@@ -1,25 +1,33 @@
 <ion-menu contentId="main-content" type="overlay">
   <ion-content>
     <ion-list id="inbox-list">
-      <ion-list-header>Mundo Colaborativo</ion-list-header>
-      <ion-note>hi@ionicframework.com</ion-note>
+      <ion-list-header>
+        <img width="32" style="margin-right: 15px;" src="assets/icon/favicon.png" />
+        Mundo Colaborativo
+      </ion-list-header>
 
-      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-        <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
-          [class.selected]="selectedIndex == i">
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Alias
+        </ion-label>
+      </ion-item>
+
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Rol</ion-label>
+          <ion-select value="DONOR" (ionChange)="roleChange()">
+            <ion-select-option value="DONOR">Donador</ion-select-option>
+            <ion-select-option value="COLLABORATOR">Colaborador</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of items; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
           <ion-label>{{ p.title }}</ion-label>
         </ion-item>
       </ion-menu-toggle>
-    </ion-list>
-
-    <ion-list id="labels-list">
-      <ion-list-header>Labels</ion-list-header>
-
-      <ion-item *ngFor="let label of labels" lines="none">
-        <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-        <ion-label>{{ label }}</ion-label>
-      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

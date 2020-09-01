@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from '../app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,15 +16,16 @@ import { MenuComponent } from './components/menu/menu.component';
     FormsModule,
     IonicModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule
   ],
   exports: [
     MenuComponent,
-    // Ionic
     FormsModule,
     IonicModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
