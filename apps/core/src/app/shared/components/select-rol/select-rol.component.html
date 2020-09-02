@@ -1,0 +1,17 @@
+<div *ngIf="hasMultipleRoles()">
+  <form [formGroup]="roleForm">
+    <ion-item>
+      <ion-label position="floating">Rol</ion-label>
+      <ion-select formControlName="role" (ionChange)="roleChange()">
+        <ion-select-option *ngFor="let role of userRoles" [value]="role">
+          {{ role }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</div>
+<div *ngIf="!hasMultipleRoles()">
+  <ion-item>
+    <ion-label>{{ activeRole }}</ion-label>
+  </ion-item>
+</div>

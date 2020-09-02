@@ -32,5 +32,10 @@ export const menuItems: MenuItem[] = [
         url: '/folder/configuration',
         icon: 'person-circle',
         roles: [Role.DONOR, Role.COLLABORATOR]
+    }, {
+        title: 'Cerrar sesión',
+        url: '/folder/configuration',
+        icon: 'person-circle',
+        roles: [Role.DONOR, Role.COLLABORATOR]
     }
 ];

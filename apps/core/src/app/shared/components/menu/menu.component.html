@@ -6,23 +6,13 @@
         Mundo Colaborativo
       </ion-list-header>
 
-      <ion-item>
-        <ion-label class="ion-text-wrap">
-          Alias
-        </ion-label>
+      <ion-item style="padding-left: 10px;">
+        <ion-note slot="end">Alias</ion-note>
       </ion-item>
 
-      <ion-list>
-        <ion-item>
-          <ion-label position="floating">Rol</ion-label>
-          <ion-select value="DONOR" (ionChange)="roleChange()">
-            <ion-select-option value="DONOR">Donador</ion-select-option>
-            <ion-select-option value="COLLABORATOR">Colaborador</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+      <app-select-rol (onRolChange)="updateByRol($event)"></app-select-rol>
 
-      <ion-menu-toggle auto-hide="false" *ngFor="let p of items; let i = index">
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of items">
         <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
           <ion-label>{{ p.title }}</ion-label>

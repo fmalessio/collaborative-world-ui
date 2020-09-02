@@ -13,10 +13,6 @@ ion-menu.md ion-list {
   padding: 5px 0;
 }
 
-ion-menu.md ion-note {
-  margin-bottom: 30px;
-}
-
 ion-menu.md ion-list-header,
 ion-menu.md ion-note {
   padding-left: 10px;
@@ -64,7 +60,6 @@ ion-menu.ios ion-list {
 
 ion-menu.ios ion-note {
   line-height: 24px;
-  margin-bottom: 20px;
 }
 
 ion-menu.ios ion-item {
@@ -88,14 +83,9 @@ ion-menu.ios ion-note {
   padding-right: 16px;
 }
 
-ion-menu.ios ion-note {
-  margin-bottom: 8px;
-}
-
 ion-note {
   display: inline-block;
   font-size: 16px;
-
   color: var(--ion-color-medium-shade);
 }
 

@@ -10,18 +10,15 @@ import { menuItems } from './menu-items';
 })
 export class MenuComponent implements OnInit {
 
-  activeRole: Role;
-  items: MenuItem[];
+  items: MenuItem[] = [];
 
   constructor() { }
 
   ngOnInit() {
-    this.activeRole = Role.DONOR;
-    this.items = menuItems.filter(item => item.roles.includes(this.activeRole));
   }
 
-  roleChange() {
-    console.log(this.activeRole);
+  updateByRol(activeRole: Role) {
+    this.items = menuItems.filter(item => item.roles.includes(activeRole));
   }
 
 }
