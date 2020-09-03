@@ -2,16 +2,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from '../app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
-import { RouterModule } from '@angular/router';
 import { SelectRolComponent } from './components/select-rol/select-rol.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
+    SelectRolComponent,
     MenuComponent,
-    SelectRolComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { SelectRolComponent } from './components/select-rol/select-rol.component
     AppRoutingModule,
     RouterModule,
     // Components
-    MenuComponent
+    MenuComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }

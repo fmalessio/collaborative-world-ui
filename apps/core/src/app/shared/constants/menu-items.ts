@@ -1,5 +1,5 @@
-import { MenuItem } from '../../model/menu-item';
-import { Role } from '../../model/role';
+import { MenuItem } from '../model/menu-item';
+import { Role } from '../model/role';
 
 export const menuItems: MenuItem[] = [
     {
