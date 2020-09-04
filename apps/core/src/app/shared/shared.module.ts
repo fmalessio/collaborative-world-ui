@@ -8,12 +8,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MenuComponent } from './component/menu/menu.component';
 import { SelectRolComponent } from './component/select-rol/select-rol.component';
 import { HeaderComponent } from './component/header/header.component';
+import { NotificationsComponent } from './component/notifications/notifications.component';
 
 @NgModule({
   declarations: [
     SelectRolComponent,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { HeaderComponent } from './component/header/header.component';
     RouterModule,
     // Components
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotificationsComponent
   ]
 })
 export class SharedModule { }

@@ -10,8 +10,6 @@ import { MenuItem } from '../../model/menu-item';
 })
 export class HeaderComponent implements OnInit {
 
-  unread = 12;
-
   currentMenuItem: MenuItem;
   private currentUrl: string = '';
 
