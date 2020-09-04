@@ -1,3 +1,21 @@
 ion-menu-button {
     color: var(--ion-color-primary);
 }
+
+.badge-button {
+    ion-badge {
+        position: absolute;
+        top: 0px;
+        right: -5px;
+        font-size: 0.6em;
+
+        &.badge-one {
+            --padding-start: 5px;
+            --padding-end: 5px;
+        }
+        &.badge-two {
+            --padding-start: 3px;
+            --padding-end: 3px;
+        }
+    }
+}

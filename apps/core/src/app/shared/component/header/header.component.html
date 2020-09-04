@@ -4,5 +4,16 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ currentMenuItem?.title }}</ion-title>
+
+    <ion-button class="badge-button"
+      slot="end"
+      fill="clear"
+      routerLink="/notifications/" 
+      routerDirection="forward">
+      <ion-icon size="large" name="notifications-outline"></ion-icon>
+      <ion-badge [class.badge-one]="unread < 10" 
+      [class.badge-two]="unread >= 10" color="danger">{{ unread }}</ion-badge>
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
