@@ -5,9 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from '../app-routing.module';
-import { MenuComponent } from './components/menu/menu.component';
-import { SelectRolComponent } from './components/select-rol/select-rol.component';
-import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { SelectRolComponent } from './component/select-rol/select-rol.component';
+import { HeaderComponent } from './component/header/header.component';
 
 @NgModule({
   declarations: [

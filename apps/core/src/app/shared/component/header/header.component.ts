@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { menuItems } from '../../constants/menu-items';
+import { menuItems } from '../../constant/menu-items';
 import { MenuItem } from '../../model/menu-item';
 
 @Component({

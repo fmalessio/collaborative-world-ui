@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/menu-item';
 import { Role } from '../../model/role';
-import { menuItems } from '../../constants/menu-items';
+import { menuItems } from '../../constant/menu-items';
 
 @Component({
   selector: 'app-menu',
