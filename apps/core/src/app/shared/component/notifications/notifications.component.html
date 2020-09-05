@@ -1,7 +1,7 @@
 <ion-button class="badge-button"
   fill="clear"
-  routerLink="/notifications/" 
-  routerDirection="forward">
+  expand="block"
+  (click)="presentNotifications($event)">
   <ion-icon 
     size="large" 
     name="notifications-outline"></ion-icon>

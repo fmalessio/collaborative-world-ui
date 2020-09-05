@@ -5,17 +5,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from '../app-routing.module';
-import { MenuComponent } from './component/menu/menu.component';
-import { SelectRolComponent } from './component/select-rol/select-rol.component';
 import { HeaderComponent } from './component/header/header.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { NotificationListComponent } from '../component/notification-list/notification-list.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
+import { SelectRolComponent } from './component/select-rol/select-rol.component';
 
 @NgModule({
   declarations: [
     SelectRolComponent,
     MenuComponent,
     HeaderComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    NotificationListComponent
   ],
   imports: [
     CommonModule,
