@@ -19,7 +19,8 @@ export class NotificationsComponent implements OnInit {
   async presentNotifications(ev: any) {
     this.notificationsPopover = await this.popoverController.create({
       component: NotificationListComponent,
-      cssClass: 'my-custom-class',
+      cssClass: '',
+      componentProps: {mode: 'popover'},
       event: ev,
       translucent: true
     });

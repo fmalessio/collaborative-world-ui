@@ -23,6 +23,11 @@ export const menuItems: MenuItem[] = [
         icon: 'star-half',
         roles: [Role.DONOR]
     }, {
+        title: 'Buscar donaciones',
+        url: '/folder/search-donations',
+        icon: 'map',
+        roles: [Role.COLLABORATOR]
+    }, {
         title: 'Notificaciones',
         url: '/folder/notifications',
         icon: 'chatbubble-ellipses',
@@ -34,8 +39,8 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR, Role.COLLABORATOR]
     }, {
         title: 'Cerrar sesión',
-        url: '/folder/configuration',
-        icon: 'person-circle',
+        url: '/folder/logout',
+        icon: 'power',
         roles: [Role.DONOR, Role.COLLABORATOR]
     }
 ];
