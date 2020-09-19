@@ -4,7 +4,7 @@ import { Role } from '../model/role';
 export const menuItems: MenuItem[] = [
     {
         title: 'Donar',
-        url: '/folder/donate',
+        url: '/donation/donate',
         icon: 'heart',
         roles: [Role.DONOR]
     }, {
@@ -29,7 +29,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.COLLABORATOR]
     }, {
         title: 'Notificaciones',
-        url: '/folder/notifications',
+        url: '/notification-list',
         icon: 'chatbubble-ellipses',
         roles: [Role.DONOR, Role.COLLABORATOR]
     }, {

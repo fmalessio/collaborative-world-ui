@@ -24,8 +24,6 @@ import { SelectRolComponent } from './component/select-rol/select-rol.component'
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
-    AppRoutingModule,
     RouterModule
   ],
   exports: [
@@ -34,8 +32,6 @@ import { SelectRolComponent } from './component/select-rol/select-rol.component'
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    BrowserModule,
-    AppRoutingModule,
     RouterModule,
     // Components
     MenuComponent,

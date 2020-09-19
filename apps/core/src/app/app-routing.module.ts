@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotificationListComponent } from './component/notification-list/notification-list.component';
 
 const routes: Routes = [
@@ -8,8 +8,8 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
+    path: 'donation',
+    loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule)
   },
   {
     path: 'notification-list',
@@ -24,7 +24,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })
