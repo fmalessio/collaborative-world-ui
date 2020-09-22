@@ -11,7 +11,9 @@ import { CategoryService } from '../../service/category.service';
 export class CategoryListComponent implements OnInit {
 
   private allCategories: Category[] = [];
-  items: Category[] = [];
+  // Navigation
+  currents: Category[] = [];
+  parentId: number;
 
   constructor(private categoryService: CategoryService) { }
 
@@ -24,15 +26,44 @@ export class CategoryListComponent implements OnInit {
     );
   }
 
-  goItem(item: Category): void {
-    item.children && item.children.length > 0 ? 
-      this.refreshItems(item.children) : 
+  nextItems(item: Category): void {
+    if (item.children && item.children.length > 0) {
+      this.parentId = item.id;
+      this.refreshItems(item.children);
+    } else {
       console.log(item);
+    }
+  }
+
+  prevItems(): void {
+    if (!this.parentId) {
+      this.refreshItems(this.allCategories);
+      return;
+    }
+    this.findLevel(this.parentId, this.allCategories).then((categories: Category[]) => {
+      this.parentId = categories[0].parentId;
+      this.refreshItems(categories);
+    });
   }
 
   private refreshItems(items: Category[]) {
-    this.items = items;
-    this.items.sort((a, b) => COMPARE_STRING(a.name, b.name));
+    this.currents = items;
+    this.currents.sort((a, b) => COMPARE_STRING(a.name, b.name));
+  }
+
+  private findLevel(id: number, categories: Category[]): Promise<Category[]> {
+    return new Promise<Category[]>((resolve, reject) => {
+      if (!categories || categories.length < 1) {
+        reject();
+      }
+      if (categories.find(c => c.id === id)) {
+        resolve(categories);
+      } else {
+        categories.forEach(element => {
+          this.findLevel(id, element.children);
+        });
+      }
+    });
   }
 
 }
