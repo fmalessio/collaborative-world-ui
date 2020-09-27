@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { COMPARE_STRING } from 'src/app/shared/constant/utils';
 import { Category } from '../../model/category';
 import { CategoryService } from '../../service/category.service';
@@ -14,6 +14,8 @@ export class CategoryListComponent implements OnInit {
   // Navigation
   currents: Category[] = [];
   parentId: number;
+
+  @Output() change: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private categoryService: CategoryService) { }
 
@@ -31,7 +33,7 @@ export class CategoryListComponent implements OnInit {
       this.parentId = item.id;
       this.refreshItems(item.children);
     } else {
-      console.log(item);
+      this.change.emit(item.id);
     }
   }
 
