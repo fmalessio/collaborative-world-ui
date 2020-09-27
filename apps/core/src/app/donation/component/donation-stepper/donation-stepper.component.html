@@ -1,0 +1,29 @@
+<div id="state-stepper-wrapper">
+  <state-stepper [size]="size">
+    <state-stepper-step (click)="move(0)">
+      <ion-icon name="list-outline" slot="icon"></ion-icon>
+      <span slot="text">Tipo</span>
+    </state-stepper-step>
+    <state-stepper-step (click)="move(1)">
+      <ion-icon name="information-circle-outline" slot="icon"></ion-icon>
+      <span slot="text">Info</span>
+    </state-stepper-step>
+    <state-stepper-step (click)="move(2)">
+      <ion-icon name="analytics-outline" slot="icon"></ion-icon>
+      <span slot="text">Track</span>
+    </state-stepper-step>
+    <state-stepper-step (click)="move(3)">
+      <ion-icon name="earth-outline" slot="icon"></ion-icon>
+      <span slot="text">Ubicación</span>
+    </state-stepper-step>
+    <state-stepper-step (click)="move(4)">
+      <ion-icon name="checkmark" slot="icon"></ion-icon>
+      <span slot="text">Confirmar</span>
+    </state-stepper-step>
+  </state-stepper>
+</div>
+
+<button ion-button (click)="next('success')">OK</button>
+<button ion-button (click)="next('warning')">Warn</button>
+<button ion-button (click)="next('danger')">Error</button>
+<button ion-button (click)="reset()">Reset</button>
