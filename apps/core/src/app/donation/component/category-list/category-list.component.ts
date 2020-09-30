@@ -11,6 +11,7 @@ import { CategoryService } from '../../service/category.service';
 export class CategoryListComponent implements OnInit {
 
   private allCategories: Category[] = [];
+  selected: Category;
   // Navigation
   currents: Category[] = [];
   parentId: number;
@@ -33,7 +34,8 @@ export class CategoryListComponent implements OnInit {
       this.parentId = item.id;
       this.refreshItems(item.children);
     } else {
-      this.change.emit(item);
+      this.selected = item;
+      this.change.emit(this.selected);
     }
   }
 
