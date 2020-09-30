@@ -15,7 +15,7 @@ export class CategoryListComponent implements OnInit {
   currents: Category[] = [];
   parentId: number;
 
-  @Output() change: EventEmitter<number> = new EventEmitter<number>();
+  @Output() change: EventEmitter<Category> = new EventEmitter<Category>();
 
   constructor(private categoryService: CategoryService) { }
 
@@ -33,7 +33,7 @@ export class CategoryListComponent implements OnInit {
       this.parentId = item.id;
       this.refreshItems(item.children);
     } else {
-      this.change.emit(item.id);
+      this.change.emit(item);
     }
   }
 

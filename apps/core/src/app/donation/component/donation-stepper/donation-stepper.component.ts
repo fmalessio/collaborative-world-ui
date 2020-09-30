@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Components } from 'state-stepper/loader';
+import { Category } from '../../model/category';
 
 @Component({
   selector: 'app-donation-stepper',
@@ -9,64 +11,76 @@ import { Components } from 'state-stepper/loader';
 })
 export class DonationStepperComponent implements OnInit, AfterViewInit {
 
-  size: string = 'medium';
+  stepperSize: string = 'medium';
   private stateStepper: Components.StateStepper;
-  private currentPosition: number = 0;
+  private stepsLegth: number;
   @ViewChild(IonSlides) slides: IonSlides;
+  // Forms
+  private categoryForm: FormGroup;
+  private descriptionForm: FormGroup;
+  private stepsForm: Array<FormGroup> = [];
+  private currentPosition: number = 0;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
     this.stateStepper = document.querySelector('state-stepper');
     this.stateStepper.resetSteps();
+    this.madeForm();
   }
 
   ngAfterViewInit() {
-    this.slides.ionSlideNextEnd.subscribe(() => {
-      this.moveFromSlide();
-    });
-    this.slides.ionSlidePrevEnd.subscribe(() => {
-      this.moveFromSlide();
-    });
+    this.slides.lockSwipes(true);
+    this.slides.length().then(
+      (size: number) => this.stepsLegth = size
+    );
   }
 
-  next(fromSlide?: boolean): void {
-    this.stateStepper.stepNext(STEPPER_STATE.SUCCESS);
-    if (!fromSlide) {
-      this.slides.slideNext();
-    }
+  next(): void {
+    let state = this.stepsForm[this.currentPosition].valid ?
+      STEPPER_STATE.SUCCESS : STEPPER_STATE.DANGER;
+    this.slides.lockSwipes(false);
+    this.stateStepper.stepNext(state);
+    this.slides.slideNext();
+    this.slides.lockSwipes(true);
     this.currentPosition += 1;
   }
 
-  back(fromSlide?: boolean): void {
+  canNext(): boolean {
+    return this.currentPosition < this.stepsLegth;
+  }
+
+  back(): void {
+    this.slides.lockSwipes(false);
     this.stateStepper.stepBack();
-    if (!fromSlide) {
-      this.slides.slidePrev();
-    }
+    this.slides.slidePrev();
+    this.slides.lockSwipes(true);
     this.currentPosition -= 1;
   }
 
-  reset(): void {
-    this.stateStepper.resetSteps();
+  canBack(): boolean {
+    return this.currentPosition !== 0;
   }
 
-  moveFromSlide() {
-    this.slides.getActiveIndex().then((idx: number) => {
-      this.move(idx, true);
-    });
-  }
-
-  move(positionClicked: number, fromSlide?: boolean): void {
-    if (positionClicked !== this.currentPosition) {
-      (positionClicked < this.currentPosition) ? this.back(fromSlide) : this.next(fromSlide);
-    }
-  }
-
-  // Steps logic
-  setCategory(id: number): void {
-    console.log(id);
+  // Form logic
+  setCategory(category: Category): void {
+    this.categoryForm.controls['category'].setValue(category);
     this.next();
+  }
+
+  private madeForm(): void {
+    // Category
+    this.categoryForm = this.fb.group({
+      category: [null, Validators.required]
+    });
+    this.stepsForm.push(this.categoryForm);
+    // Description
+    this.descriptionForm = this.fb.group({
+      text: '',
+      text2: [null, Validators.required]
+    });
+    this.stepsForm.push(this.descriptionForm);
   }
 
 }

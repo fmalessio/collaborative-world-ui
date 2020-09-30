@@ -1,22 +1,22 @@
 <div id="state-stepper-wrapper">
-  <state-stepper [size]="size">
-    <state-stepper-step (click)="move(0)">
+  <state-stepper [size]="stepperSize">
+    <state-stepper-step>
       <ion-icon name="list-outline" slot="icon"></ion-icon>
       <span slot="text">Tipo</span>
     </state-stepper-step>
-    <state-stepper-step (click)="move(1)">
+    <state-stepper-step>
       <ion-icon name="information-circle-outline" slot="icon"></ion-icon>
       <span slot="text">Info</span>
     </state-stepper-step>
-    <state-stepper-step (click)="move(2)">
+    <state-stepper-step>
       <ion-icon name="analytics-outline" slot="icon"></ion-icon>
       <span slot="text">Track</span>
     </state-stepper-step>
-    <state-stepper-step (click)="move(3)">
+    <state-stepper-step>
       <ion-icon name="earth-outline" slot="icon"></ion-icon>
       <span slot="text">Ubicación</span>
     </state-stepper-step>
-    <state-stepper-step (click)="move(4)">
+    <state-stepper-step>
       <ion-icon name="checkmark" slot="icon"></ion-icon>
       <span slot="text">Confirmar</span>
     </state-stepper-step>
@@ -24,29 +24,35 @@
 </div>
 
 <ion-content scroll-y="false">
+  <ion-buttons id="slides-nav">
+    <ion-button *ngIf="canBack()" (click)="back()"
+      fill="clear" color="primary">
+      Volver <ion-icon slot="start" name="arrow-back"></ion-icon>
+    </ion-button>
+    <span class="fill-remaining-space"></span>
+    <ion-button *ngIf="canNext()"  (click)="next()"
+      fill="clear" color="primary">
+      Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-button>
+  </ion-buttons>
   <ion-slides>
-
     <ion-slide>
       <app-category-list (change)="setCategory($event)"></app-category-list>
     </ion-slide>
-
     <ion-slide>
       <h2>What is Ionic?</h2>
       <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web
         technologies like HTML, CSS, and JavaScript.</p>
     </ion-slide>
-
     <ion-slide>
       <h2>What is Ionic Appflow?</h2>
       <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a
         totally new level of app development agility to mobile dev teams.</p>
     </ion-slide>
-
     <ion-slide>
       <h2>Ready to Play?</h2>
       <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-slide>
-
   </ion-slides>
 </ion-content>
