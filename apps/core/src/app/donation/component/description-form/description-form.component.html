@@ -1,0 +1,16 @@
+<h3>Brindanos una descripción</h3>
+<form [formGroup]="descriptionForm">
+  <ion-item>
+    <ion-icon name="speedometer" item-start></ion-icon>
+    <ion-label stacked>Cantidad:</ion-label>
+    <ion-input formControlName="ammount" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Descripción corta</ion-label>
+    <ion-textarea 
+      maxlength="512"
+      rows="3"
+      formControlName="description" 
+      type="text"></ion-textarea>
+  </ion-item>
+</form>

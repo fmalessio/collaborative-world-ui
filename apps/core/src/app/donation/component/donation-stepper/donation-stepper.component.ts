@@ -77,8 +77,11 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     this.stepsForm.push(this.categoryForm);
     // Description
     this.descriptionForm = this.fb.group({
-      text: '',
-      text2: [null, Validators.required]
+      description: '',
+      ammount: [1, 
+        [Validators.required,
+        Validators.min(1),
+        Validators.max(9999)]]
     });
     this.stepsForm.push(this.descriptionForm);
   }

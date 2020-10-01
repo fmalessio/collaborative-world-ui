@@ -7,7 +7,7 @@
   </ion-item>
   <ion-item *ngFor="let item of currents" button (click)="nextItems(item)">
     <ion-icon slot="start" name="logo-${item.icon}"></ion-icon>
-    <ion-label class="selected" [ngClass]="{'selected': selected?.id === item.id}">
+    <ion-label [ngClass]="{'selected': selected?.id === item.id}">
       {{item.name}}
     </ion-label>
   </ion-item>

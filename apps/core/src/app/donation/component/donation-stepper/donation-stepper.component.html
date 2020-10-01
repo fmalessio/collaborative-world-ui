@@ -23,7 +23,7 @@
   </state-stepper>
 </div>
 
-<ion-content scroll-y="false">
+<ion-content>
   <ion-buttons id="slides-nav">
     <ion-button *ngIf="canBack()" (click)="back()"
       fill="clear" color="primary">
@@ -40,9 +40,7 @@
       <app-category-list (change)="setCategory($event)"></app-category-list>
     </ion-slide>
     <ion-slide>
-      <h2>What is Ionic?</h2>
-      <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web
-        technologies like HTML, CSS, and JavaScript.</p>
+      <app-description-form [descriptionForm]="descriptionForm"></app-description-form>
     </ion-slide>
     <ion-slide>
       <h2>What is Ionic Appflow?</h2>
