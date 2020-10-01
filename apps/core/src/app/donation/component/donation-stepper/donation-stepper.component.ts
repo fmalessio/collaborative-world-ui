@@ -18,6 +18,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   // Forms
   private categoryForm: FormGroup;
   private descriptionForm: FormGroup;
+  private trackForm: FormGroup;
   private stepsForm: Array<FormGroup> = [];
   private currentPosition: number = 0;
 
@@ -78,12 +79,17 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     // Description
     this.descriptionForm = this.fb.group({
       description: '',
-      ammount: [1, 
+      ammount: [1,
         [Validators.required,
         Validators.min(1),
         Validators.max(9999)]]
     });
     this.stepsForm.push(this.descriptionForm);
+    // Track
+    this.trackForm = this.fb.group({
+      follow: [null, Validators.required]
+    });
+    this.stepsForm.push(this.trackForm);
   }
 
 }

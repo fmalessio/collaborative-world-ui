@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CategoryListComponent } from './component/category-list/category-list.component';
 import { DescriptionFormComponent } from './component/description-form/description-form.component';
 import { DonationStepperComponent } from './component/donation-stepper/donation-stepper.component';
+import { TrackFormComponent } from './component/track-form/track-form.component';
 import { DonationRoutingModule } from './donation-routing.module';
 import { CategoryService } from './service/category.service';
 
@@ -12,7 +13,8 @@ import { CategoryService } from './service/category.service';
   declarations: [
     DonationStepperComponent,
     CategoryListComponent,
-    DescriptionFormComponent
+    DescriptionFormComponent,
+    TrackFormComponent
   ],
   imports: [
     CommonModule,
