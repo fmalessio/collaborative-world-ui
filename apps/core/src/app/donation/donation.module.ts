@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MapComponent } from '../component/map/map.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryListComponent } from './component/category-list/category-list.component';
 import { DescriptionFormComponent } from './component/description-form/description-form.component';
@@ -14,7 +15,8 @@ import { CategoryService } from './service/category.service';
     DonationStepperComponent,
     CategoryListComponent,
     DescriptionFormComponent,
-    TrackFormComponent
+    TrackFormComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,

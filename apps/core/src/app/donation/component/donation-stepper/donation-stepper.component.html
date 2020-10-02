@@ -21,34 +21,39 @@
       <span slot="text">Confirmar</span>
     </state-stepper-step>
   </state-stepper>
-</div>
 
-<ion-content>
   <ion-buttons id="slides-nav">
-    <ion-button *ngIf="canBack()" (click)="back()"
-      fill="clear" color="primary">
+    <ion-button *ngIf="canBack()" (click)="back()" fill="clear" color="primary">
       Volver <ion-icon slot="start" name="arrow-back"></ion-icon>
     </ion-button>
     <span class="fill-remaining-space"></span>
-    <ion-button *ngIf="canNext()"  (click)="next()"
-      fill="clear" color="primary">
+    <ion-button *ngIf="canNext()" (click)="next()" fill="clear" color="primary">
       Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-slides>
-    <ion-slide>
-      <app-category-list (change)="setCategory($event)"></app-category-list>
-    </ion-slide>
-    <ion-slide>
-      <app-description-form [descriptionForm]="descriptionForm"></app-description-form>
-    </ion-slide>
-    <ion-slide>
-      <app-track-form [trackForm]="trackForm"></app-track-form>
-    </ion-slide>
-    <ion-slide>
-      <h2>Ready to Play?</h2>
-      <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
-      </ion-button>
-    </ion-slide>
-  </ion-slides>
+</div>
+
+<ion-content>
+  <ion-content>
+    <ion-slides class="stepper-slides">
+      <ion-slide>
+        <app-map></app-map>
+      </ion-slide>
+      <ion-slide>
+        <app-category-list (change)="setCategory($event)"></app-category-list>
+      </ion-slide>
+      <ion-slide>
+        <app-description-form [descriptionForm]="descriptionForm"></app-description-form>
+      </ion-slide>
+      <ion-slide>
+        <app-track-form [trackForm]="trackForm"></app-track-form>
+      </ion-slide>
+
+      <ion-slide>
+        <h2>Ready to Play?</h2>
+        <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-slide>
+    </ion-slides>
+  </ion-content>
 </ion-content>

@@ -13,7 +13,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   stepperSize: string = 'medium';
   private stateStepper: Components.StateStepper;
-  private stepsLegth: number;
+  private stepsLegth: number = 5;
   @ViewChild(IonSlides) slides: IonSlides;
   // Forms
   private categoryForm: FormGroup;
@@ -33,9 +33,6 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.slides.lockSwipes(true);
-    this.slides.length().then(
-      (size: number) => this.stepsLegth = size
-    );
   }
 
   next(): void {
@@ -49,6 +46,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canNext(): boolean {
+    console.log(this.stepsLegth);
     return this.currentPosition < this.stepsLegth;
   }
 
