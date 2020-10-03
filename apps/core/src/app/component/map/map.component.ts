@@ -47,7 +47,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   private loadScript() {
     console.log('preparing to load...')
     let script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLmWA2P4R8Za1i0YkD2HFQFdvb9usIBNs';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=#';
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
