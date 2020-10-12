@@ -62,12 +62,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     return !this.mapOpened && this.currentPosition !== 0;
   }
 
-  openMap() {
-    this.mapOpened = true;
-  }
-
-  closeMap() {
-    this.mapOpened = false;
+  setMapOpened(mapOpened: boolean) {
+    this.mapOpened = mapOpened;
   }
 
   // Form logic

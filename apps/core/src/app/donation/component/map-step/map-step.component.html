@@ -1,0 +1,10 @@
+<ion-button *ngIf="mapOpened" (click)="toggleMap()" fill="clear" color="primary">
+  Cerrar
+</ion-button>
+<div *ngIf="!mapOpened">
+  <p>(Sin dirección)</p>
+  <ion-button (click)="toggleMap()" fill="clear" color="primary">
+    Cambiar
+  </ion-button>
+</div>
+<app-map *ngIf="mapOpened"></app-map>
