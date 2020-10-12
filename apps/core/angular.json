@@ -42,6 +42,30 @@
             "scripts": []
           },
           "configurations": {
+            "mock": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.mock.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -79,6 +103,9 @@
           "configurations": {
             "production": {
               "browserTarget": "com.fmalessio.collaborativeworld.ui:build:production"
+            },
+            "mock": {
+              "browserTarget": "com.fmalessio.collaborativeworld.ui:build:mock"
             },
             "ci": {
               "progress": false
@@ -141,6 +168,9 @@
             "production": {
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:production"
             },
+            "mock": {
+              "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:mock"
+            },
             "ci": {
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:ci"
             }
@@ -154,6 +184,9 @@
           "configurations": {
             "production": {
               "browserTarget": "com.fmalessio.collaborativeworld.ui:build:production"
+            },
+            "mock": {
+              "browserTarget": "com.fmalessio.collaborativeworld.ui:build:mock"
             }
           }
         },
@@ -167,6 +200,10 @@
             "production": {
               "cordovaBuildTarget": "com.fmalessio.collaborativeworld.ui:ionic-cordova-build:production",
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:production"
+            },
+            "mock": {
+              "cordovaBuildTarget": "com.fmalessio.collaborativeworld.ui:ionic-cordova-build:mock",
+              "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:mock"
             }
           }
         }

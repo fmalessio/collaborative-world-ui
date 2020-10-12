@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:3000'
+  endpoint: 'https://5f84ade1c29abd001618fdb7.mockapi.io/mock/v1'
 };
 
 /*
