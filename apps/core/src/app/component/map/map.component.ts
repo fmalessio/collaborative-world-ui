@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Platform } from '@ionic/angular';
 
 declare var google: any;
 
@@ -14,24 +13,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   map: any;
   @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
 
-  constructor(public plt: Platform) {
-    this.plt.ready().then((readySource) => {
-      //console.log('Platform ready from', readySource);
-      //this.showMap();
-    });
+  constructor() {
   }
 
   ngOnInit() {
-    this.loadAPI = new Promise((resolve) => {
-      
-      //this.loadScript();
-    });
   }
 
   ngAfterViewInit() {
-    console.log('Resolving Map...');
-    console.log('Platform ready from');
-      this.showMap();
+    this.showMap();
   }
 
   showMap() {
@@ -39,23 +28,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     const options = {
       center: location,
       zoom: 15,
-      disableDefaultUI: true
+      disableDefaultUI: true,
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
   }
-
-  private loadScript() {
-    console.log('preparing to load...')
-    let script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=#';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }
-
-  /*ionViewDidEnter() {
-    this.showMap();
-  }*/
-
 
 }

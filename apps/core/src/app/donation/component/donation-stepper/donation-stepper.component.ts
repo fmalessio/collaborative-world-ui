@@ -12,6 +12,7 @@ import { Category } from '../../model/category';
 export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   stepperSize: string = 'medium';
+  mapOpened: boolean = false;
   private stateStepper: Components.StateStepper;
   private stepsLegth: number = 5;
   @ViewChild(IonSlides) slides: IonSlides;
@@ -46,8 +47,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canNext(): boolean {
-    console.log(this.stepsLegth);
-    return this.currentPosition < this.stepsLegth;
+    return !this.mapOpened && this.currentPosition < this.stepsLegth;
   }
 
   back(): void {
@@ -59,7 +59,15 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canBack(): boolean {
-    return this.currentPosition !== 0;
+    return !this.mapOpened && this.currentPosition !== 0;
+  }
+
+  openMap() {
+    this.mapOpened = true;
+  }
+
+  closeMap() {
+    this.mapOpened = false;
   }
 
   // Form logic
