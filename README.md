@@ -7,6 +7,7 @@ ionic capacitor build android
 
 ### Start
 npm start
+ionic capacitor run andoid
 
 ### Inicialización
 Este proyecto se creó utilizando Ionic, utilizando los siguientes comandos:\
