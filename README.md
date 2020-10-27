@@ -7,6 +7,7 @@ ionic capacitor build android
 
 ### Start
 npm start
+npm run-script start:mock
 ionic capacitor run andoid
 
 ### Inicialización

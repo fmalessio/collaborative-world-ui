@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
+import { Geolocation } from '../../model/geolocation';
 
 @Component({
   selector: 'app-donation-stepper',
@@ -20,6 +21,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   private categoryForm: FormGroup;
   private descriptionForm: FormGroup;
   private trackForm: FormGroup;
+  private geolocationForm: FormGroup;
+  // Forms manager
   private stepsForm: Array<FormGroup> = [];
   private currentPosition: number = 0;
 
@@ -29,7 +32,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.stateStepper = document.querySelector('state-stepper');
     this.stateStepper.resetSteps();
-    this.madeForm();
+    this.madeForms();
+    this.pushFormsInOrder();
   }
 
   ngAfterViewInit() {
@@ -37,8 +41,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   next(): void {
-    let state = this.stepsForm[this.currentPosition].valid ?
-      STEPPER_STATE.SUCCESS : STEPPER_STATE.DANGER;
+    const state = this.checkStateBeforeNext();
     this.slides.lockSwipes(false);
     this.stateStepper.stepNext(state);
     this.slides.slideNext();
@@ -66,18 +69,20 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     this.mapOpened = mapOpened;
   }
 
-  // Form logic
   setCategory(category: Category): void {
     this.categoryForm.controls['category'].setValue(category);
     this.next();
   }
 
-  private madeForm(): void {
+  setLocation(geolocation: Geolocation): void {
+    this.geolocationForm.controls['geolocation'].setValue(geolocation);
+  }
+
+  private madeForms(): void {
     // Category
     this.categoryForm = this.fb.group({
       category: [null, Validators.required]
     });
-    this.stepsForm.push(this.categoryForm);
     // Description
     this.descriptionForm = this.fb.group({
       description: '',
@@ -86,12 +91,31 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
         Validators.min(1),
         Validators.max(9999)]]
     });
-    this.stepsForm.push(this.descriptionForm);
     // Track
     this.trackForm = this.fb.group({
       follow: [null, Validators.required]
     });
-    this.stepsForm.push(this.trackForm);
+    // Location
+    this.geolocationForm = this.fb.group({
+      geolocation: [null, Validators.required]
+    });
+  }
+
+  private pushFormsInOrder() {
+    this.stepsForm.push(...
+      [this.categoryForm,
+      this.descriptionForm,
+      this.trackForm,
+      this.geolocationForm]);
+  }
+
+  private checkStateBeforeNext(): STEPPER_STATE {
+    let state = STEPPER_STATE.SUCCESS;
+    if (this.stepsForm[this.currentPosition] &&
+      !this.stepsForm[this.currentPosition].valid) {
+      state = STEPPER_STATE.DANGER;
+    }
+    return state;
   }
 
 }

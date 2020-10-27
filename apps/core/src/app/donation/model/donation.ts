@@ -1,4 +1,5 @@
 import { Box } from './box';
+import { Geolocation } from './geolocation';
 
 export class Donation {
     id: string;

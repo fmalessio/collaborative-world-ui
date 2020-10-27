@@ -35,7 +35,7 @@
 
 <ion-content>
   <ion-content>
-    <ion-slides class="stepper-slides" [ngStyle]="mapOpened ? {'display': 'unset'} : {'display': 'block'}">
+    <ion-slides class="stepper-slides">
       <ion-slide>
         <app-category-list (change)="setCategory($event)"></app-category-list>
       </ion-slide>
@@ -46,11 +46,14 @@
         <app-track-form [trackForm]="trackForm"></app-track-form>
       </ion-slide>
       <ion-slide>
-        <app-map-step (mapOpenChange)="setMapOpened($event)" [mapOpened]="mapOpened"></app-map-step>
+        <app-location-step (onLocationChange)="setLocation($event)"></app-location-step>
       </ion-slide>
       <ion-slide>
-        <h2>Ready to Play?</h2>
-        <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        <h2>¿Desea confirmar la siguiente donación?</h2>
+        <p>...</p>
+        <ion-button>
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          Confirmar
         </ion-button>
       </ion-slide>
     </ion-slides>

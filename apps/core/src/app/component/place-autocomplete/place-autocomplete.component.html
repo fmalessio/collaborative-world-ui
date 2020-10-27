@@ -1,0 +1,14 @@
+<ion-item>
+  <ion-searchbar 
+    search-icon="location"
+    showCancelButton="always"
+    placeholder="Ingresa la dirección"
+    [(ngModel)]="autocomplete.input" 
+    (ionInput)="updateSearchResults()" 
+    (ionClear)="clearAutocomplete()"></ion-searchbar>
+</ion-item>
+<ion-list [hidden]="autocompleteItems.length == 0">
+  <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+    {{ item.description }}
+  </ion-item>
+</ion-list>

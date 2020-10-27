@@ -1,0 +1,28 @@
+<h3 *ngIf="!searching">Ingrese en qué dirección estará la donación</h3>
+<h3 *ngIf="searching">Un momento...</h3>
+<ion-spinner name="bubbles" *ngIf="searching"></ion-spinner>
+<div *ngIf="!geolocation && searcherOpen">
+  <app-place-autocomplete
+    (onSearchStart)="searchStarted()"
+    (onLocationChange)="setLocation($event)"></app-place-autocomplete>
+  <p class="note"><em>Tener en cuenta:</em> Debe ingresar la dirección completa con número, y seleccione una sugerencia.
+    Ejemplo:
+    Tebicuary 1800, Castelar, Buenos Aires.</p>
+</div>
+<div *ngIf="!searcherOpen">
+  <ion-button (click)="changeLocation()" fill="clear" color="primary">
+    Cambiar
+  </ion-button>
+</div>
+<div *ngIf="geolocation">
+  <ion-card>
+    <ion-card-content>
+      <div>
+        <ion-label color="primary">Dirección: </ion-label>
+        <ion-text>{{ geolocation.address }}</ion-text>
+      </div>
+      <ion-label color="primary">Coordenadas: </ion-label>
+      <ion-text>{{ geolocation.lat }} ; {{ geolocation.lng }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+</div>

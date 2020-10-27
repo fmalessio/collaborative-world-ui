@@ -1,5 +1,6 @@
 export class Geolocation {
-    id: string;
+    id?: string;
     lat: number;
-    long: number;
+    lng: number;
+    address: string;
 }
