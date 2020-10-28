@@ -49,12 +49,20 @@
         <app-location-step (onLocationChange)="setLocation($event)"></app-location-step>
       </ion-slide>
       <ion-slide>
-        <h2>¿Desea confirmar la siguiente donación?</h2>
-        <p>...</p>
-        <ion-button>
-          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
-          Confirmar
-        </ion-button>
+        <h3>¿Desea confirmar la siguiente donación?</h3>
+        <br/>
+        <h4 *ngIf="!allStepsValid" class="error">Corrija la información antes de continuar</h4>
+        <div *ngIf="allStepsValid">
+          <ion-item *ngFor="let item of resume">
+            <ion-label>{{item.label}}</ion-label>
+            <ion-label class="ion-text-wrap">{{item.value}}</ion-label>
+          </ion-item>
+          <br/>
+          <ion-button (click)="save()">
+            <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+            Confirmar
+          </ion-button>
+        </div>
       </ion-slide>
     </ion-slides>
   </ion-content>

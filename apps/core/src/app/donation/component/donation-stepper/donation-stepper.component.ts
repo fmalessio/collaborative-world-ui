@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
+import { element } from 'protractor';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
+import { Donation } from '../../model/donation';
 import { Geolocation } from '../../model/geolocation';
 
 @Component({
@@ -13,7 +15,6 @@ import { Geolocation } from '../../model/geolocation';
 export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   stepperSize: string = 'medium';
-  mapOpened: boolean = false;
   private stateStepper: Components.StateStepper;
   private stepsLegth: number = 5;
   @ViewChild(IonSlides) slides: IonSlides;
@@ -25,6 +26,10 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   // Forms manager
   private stepsForm: Array<FormGroup> = [];
   private currentPosition: number = 0;
+  // Confirmation
+  private donation: Donation;
+  allStepsValid: boolean = false;
+  resume: Array<{ label: string, value: string }> = [];
 
   constructor(private fb: FormBuilder) {
   }
@@ -41,6 +46,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   next(): void {
+    this.allStepsValid = this.checkAllStepsValid();
     const state = this.checkStateBeforeNext();
     this.slides.lockSwipes(false);
     this.stateStepper.stepNext(state);
@@ -50,7 +56,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canNext(): boolean {
-    return !this.mapOpened && this.currentPosition < this.stepsLegth;
+    return this.currentPosition < this.stepsLegth;
   }
 
   back(): void {
@@ -62,11 +68,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canBack(): boolean {
-    return !this.mapOpened && this.currentPosition !== 0;
-  }
-
-  setMapOpened(mapOpened: boolean) {
-    this.mapOpened = mapOpened;
+    return this.currentPosition !== 0;
   }
 
   setCategory(category: Category): void {
@@ -76,6 +78,10 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   setLocation(geolocation: Geolocation): void {
     this.geolocationForm.controls['geolocation'].setValue(geolocation);
+  }
+
+  save(): void {
+    console.log(JSON.stringify(this.donation));
   }
 
   private madeForms(): void {
@@ -116,6 +122,33 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       state = STEPPER_STATE.DANGER;
     }
     return state;
+  }
+
+  private checkAllStepsValid(): boolean {
+    let invalid = this.stepsForm.find(element => element.invalid);
+    if(!invalid) {
+      this.buildResume();
+    }
+    return !invalid;
+  }
+
+  private buildResume() {
+    this.donation = {
+      geolocation: this.geolocationForm.getRawValue().geolocation,
+      follow: this.trackForm.getRawValue().follow,
+      ammount: this.descriptionForm.getRawValue().ammount,
+      box: {
+        category: this.categoryForm.getRawValue().category,
+        description: this.descriptionForm.getRawValue().description
+      },
+      startDate: Date.now()
+    };
+    this.resume = [];
+    this.resume.push({ label: 'Categoría', value: this.donation.box.category.name });
+    this.resume.push({ label: 'Cantidad', value: this.donation.ammount.toString() });
+    this.resume.push({ label: 'Descripción', value: this.donation.box.description });
+    this.resume.push({ label: 'Con seguimiento', value: this.donation.follow ? 'Sí' : 'No' });
+    this.resume.push({ label: 'Dirección', value: this.donation.geolocation.address });
   }
 
 }
