@@ -12,6 +12,7 @@ import { MapStepComponent } from './component/map-step/map-step.component';
 import { TrackFormComponent } from './component/track-form/track-form.component';
 import { DonationRoutingModule } from './donation-routing.module';
 import { CategoryService } from './service/category.service';
+import { DonationService } from './service/donation.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CategoryService } from './service/category.service';
     HttpClientModule
   ],
   providers: [
-    CategoryService
+    CategoryService,
+    DonationService
   ]
 })
 export class DonationModule { }

@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonSlides } from '@ionic/angular';
-import { element } from 'protractor';
+import { Router } from '@angular/router';
+import { AlertController, IonSlides } from '@ionic/angular';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
 import { Donation } from '../../model/donation';
 import { Geolocation } from '../../model/geolocation';
+import { DonationService } from '../../service/donation.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-donation-stepper',
   templateUrl: './donation-stepper.component.html',
@@ -30,8 +33,14 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   private donation: Donation;
   allStepsValid: boolean = false;
   resume: Array<{ label: string, value: string }> = [];
+  private saved: boolean = false;
+  finalMessage: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    public alertController: AlertController,
+    private fb: FormBuilder,
+    private donationService: DonationService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -56,7 +65,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canNext(): boolean {
-    return this.currentPosition < this.stepsLegth;
+    return this.currentPosition < this.stepsLegth &&
+      !this.saved;
   }
 
   back(): void {
@@ -68,7 +78,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   canBack(): boolean {
-    return this.currentPosition !== 0;
+    return this.currentPosition !== 0 &&
+      !this.saved;
   }
 
   setCategory(category: Category): void {
@@ -81,7 +92,31 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   save(): void {
-    console.log(JSON.stringify(this.donation));
+    this.donationService.save(this.donation).
+      pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.showFinalMessage();
+      }, (error) => console.error(JSON.stringify(error)));
+  }
+
+  async showFinalMessage() {
+    const message = this.donation.follow ?
+    'Es una donación con seguimiento: Recuerda ingresar a "Finalizar donación" e imprimir el código QR de la donación y pegarlo en paquete.' :
+    'Tu donación ya está disponible, espera que algún colaborador la retire.';
+    const alert = await this.alertController.create({
+      cssClass: '',
+      header: 'Donación creada!',
+      subHeader: 'Mundo Colaborativo está agradecido.',
+      message: message,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          console.log('Confirm Okay');
+          this.router.navigate(["/folder/Inbox"]);
+        }
+      }]
+    });
+    await alert.present();
   }
 
   private madeForms(): void {
@@ -126,7 +161,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   private checkAllStepsValid(): boolean {
     let invalid = this.stepsForm.find(element => element.invalid);
-    if(!invalid) {
+    if (!invalid) {
       this.buildResume();
     }
     return !invalid;
@@ -140,8 +175,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       box: {
         category: this.categoryForm.getRawValue().category,
         description: this.descriptionForm.getRawValue().description
-      },
-      startDate: Date.now()
+      }
     };
     this.resume = [];
     this.resume.push({ label: 'Categoría', value: this.donation.box.category.name });

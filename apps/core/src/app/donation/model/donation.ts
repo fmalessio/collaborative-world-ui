@@ -8,6 +8,6 @@ export class Donation {
     follow: boolean;
     ammount: number;
     pathPhotoEvidence?: string;
-    startDate: number;
+    startDate?: number;
     endedDate?: number;
 }

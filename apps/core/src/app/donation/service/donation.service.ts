@@ -2,19 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Category } from '../model/category';
+import { Donation } from '../model/donation';
 
-const CATEGORY_ENDPOINT = environment.endpoint + '/category';
+const DONATION_ENDPOINT = environment.endpoint + '/donation';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class DonationService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(CATEGORY_ENDPOINT + '/all');
+  save(donation: Donation): Observable<Donation> {
+    return this.http.post<Donation>(DONATION_ENDPOINT, donation);
   }
-
 }
