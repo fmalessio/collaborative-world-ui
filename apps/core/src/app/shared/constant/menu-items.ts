@@ -14,7 +14,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR]
     }, {
         title: 'Mis Donaciones',
-        url: '/folder/my-donations',
+        url: '/my-donations',
         icon: 'list',
         roles: [Role.DONOR]
     }, {

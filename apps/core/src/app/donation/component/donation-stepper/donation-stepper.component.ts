@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, IonSlides } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { DonationService } from 'src/app/business-core/service/donation.service';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
 import { Donation } from '../../model/donation';
 import { Geolocation } from '../../model/geolocation';
-import { DonationService } from '../../service/donation.service';
 
 @UntilDestroy()
 @Component({
@@ -92,8 +92,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   }
 
   save(): void {
-    this.donationService.save(this.donation).
-      pipe(untilDestroyed(this))
+    this.donationService.save(this.donation)
+      .pipe(untilDestroyed(this))
       .subscribe(() => {
         this.showFinalMessage();
       }, (error) => console.error(JSON.stringify(error)));
@@ -101,8 +101,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   async showFinalMessage() {
     const message = this.donation.follow ?
-    'Es una donación con seguimiento: Recuerda ingresar a "Finalizar donación" e imprimir el código QR de la donación y pegarlo en paquete.' :
-    'Tu donación ya está disponible, espera que algún colaborador la retire.';
+      'Es una donación con seguimiento: Recuerda ingresar a "Finalizar donación" e imprimir el código QR de la donación y pegarlo en paquete.' :
+      'Tu donación ya está disponible, espera que algún colaborador la retire.';
     const alert = await this.alertController.create({
       cssClass: '',
       header: 'Donación creada!',
@@ -127,7 +127,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     // Description
     this.descriptionForm = this.fb.group({
       description: '',
-      ammount: [1,
+      amount: [1,
         [Validators.required,
         Validators.min(1),
         Validators.max(9999)]]
@@ -171,7 +171,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     this.donation = {
       geolocation: this.geolocationForm.getRawValue().geolocation,
       follow: this.trackForm.getRawValue().follow,
-      ammount: this.descriptionForm.getRawValue().ammount,
+      amount: this.descriptionForm.getRawValue().amount,
       box: {
         category: this.categoryForm.getRawValue().category,
         description: this.descriptionForm.getRawValue().description
@@ -179,7 +179,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     };
     this.resume = [];
     this.resume.push({ label: 'Categoría', value: this.donation.box.category.name });
-    this.resume.push({ label: 'Cantidad', value: this.donation.ammount.toString() });
+    this.resume.push({ label: 'Cantidad', value: this.donation.amount.toString() });
     this.resume.push({ label: 'Descripción', value: this.donation.box.description });
     this.resume.push({ label: 'Con seguimiento', value: this.donation.follow ? 'Sí' : 'No' });
     this.resume.push({ label: 'Dirección', value: this.donation.geolocation.address });

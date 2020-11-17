@@ -8,12 +8,16 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   },
   {
+    path: 'notification-list',
+    component: NotificationListComponent
+  },
+  {
     path: 'donation',
     loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule)
   },
   {
-    path: 'notification-list',
-    component: NotificationListComponent
+    path: 'my-donations',
+    loadChildren: () => import('./donation-list/donation-list.module').then(m => m.DonationListModule)
   },
   {
     path: '',

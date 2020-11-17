@@ -6,7 +6,7 @@ export class Donation {
     geolocation: Geolocation;
     box: Box;
     follow: boolean;
-    ammount: number;
+    amount: number;
     pathPhotoEvidence?: string;
     startDate?: number;
     endedDate?: number;
