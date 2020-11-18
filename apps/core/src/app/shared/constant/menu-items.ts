@@ -14,7 +14,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR]
     }, {
         title: 'Mis Donaciones',
-        url: '/my-donations',
+        url: '/donation-list',
         icon: 'list',
         roles: [Role.DONOR]
     }, {
@@ -24,7 +24,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR]
     }, {
         title: 'Buscar donaciones',
-        url: '/folder/search-donations',
+        url: '/donation-list/nearby',
         icon: 'map',
         roles: [Role.COLLABORATOR]
     }, {

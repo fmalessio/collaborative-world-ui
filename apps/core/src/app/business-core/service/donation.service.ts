@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DonationNearby } from 'src/app/donation-list/model/donation-nearby';
 import { Donation } from 'src/app/donation/model/donation';
 import { environment } from 'src/environments/environment';
 
@@ -19,5 +20,13 @@ export class DonationService {
 
   findByUser(userUuid: string): Observable<Donation[]> {
     return this.http.get<Donation[]>(`${DONATION_ENDPOINT}/user/${userUuid}`);
+  }
+
+  findNearby(lat: string, lng: string, limit: string): Observable<DonationNearby[]> {
+    console.log(`Finding nerby with ${lat}, ${lng}, ${limit}`);
+    return this.http.get<DonationNearby[]>(
+      `${DONATION_ENDPOINT}/search/nearby`,
+      { params: { lat: lat, lng: lng, limit: limit } }
+    );
   }
 }

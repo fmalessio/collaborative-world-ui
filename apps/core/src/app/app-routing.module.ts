@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule)
   },
   {
-    path: 'my-donations',
+    path: 'donation-list',
     loadChildren: () => import('./donation-list/donation-list.module').then(m => m.DonationListModule)
   },
   {
