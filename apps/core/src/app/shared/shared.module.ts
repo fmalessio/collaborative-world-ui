@@ -8,6 +8,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
 import { SelectRolComponent } from './component/select-rol/select-rol.component';
+import { DonationStatePipe } from './pipe/donation-state.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SelectRolComponent } from './component/select-rol/select-rol.component'
     MenuComponent,
     HeaderComponent,
     NotificationsComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    DonationStatePipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,9 @@ import { SelectRolComponent } from './component/select-rol/select-rol.component'
     // Components
     MenuComponent,
     HeaderComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    // Pipes
+    DonationStatePipe
   ]
 })
 export class SharedModule { }

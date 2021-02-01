@@ -1,5 +1,8 @@
 <ion-list>
   <ion-item *ngFor="let item of donations">
-    <ion-label>{{ item.box.category.name }} ({{ item.amount }})</ion-label>
+    <ion-label class="ion-text-wrap">
+      <h3>{{ item.box.category.name }} ({{ item.amount }})</h3>
+      <p>{{ item.state | donationState }} - {{ getLastUpdate(item) | date: 'dd/MM/yyyy' }}</p>
+    </ion-label>
   </ion-item>
 </ion-list>
