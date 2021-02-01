@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { DonationService } from 'src/app/business-core/service/donation.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Donation, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
@@ -11,20 +10,9 @@ import { Donation, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation'
 })
 export class DonationListComponent implements OnInit {
 
-  private userUuidMock: string = 'f7feadfa-d33a-4ed3-8bf5-b0e090b7381c';
-  donations: Donation[] = [];
+  @Input('donations') donations: Donation[] = [];
 
-  constructor(private donationService: DonationService) { }
-
-  ngOnInit() {
-    this.loadData();
-  }
-
-  private loadData(): void {
-    this.donationService.findByUser(this.userUuidMock)
-      .pipe(untilDestroyed(this))
-      .subscribe(data => this.donations = data);
-  }
+  ngOnInit() { }
 
   private getLastUpdate(donation: Donation) {
     return UPDATED_AT_FOR_STATE(donation.transactions, donation.state);
