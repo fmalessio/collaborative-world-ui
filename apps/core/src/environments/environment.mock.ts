@@ -1,10 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { secretEnv } from "./environment.secret";
 
 export const environment = {
   production: false,
-  endpoint: 'https://5f84ade1c29abd001618fdb7.mockapi.io/mock/v1'
+  endpoint: 'https://5f84ade1c29abd001618fdb7.mockapi.io/mock/v1',
+  googleMapsKey: secretEnv.GOOGLE_MAPS_KEY
 };
 
 /*

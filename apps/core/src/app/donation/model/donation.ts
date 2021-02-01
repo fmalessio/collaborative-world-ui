@@ -10,4 +10,9 @@ export class Donation {
     pathPhotoEvidence?: string;
     startDate?: number;
     endedDate?: number;
+    user: User;
+}
+
+export interface User {
+    uuid: string;
 }

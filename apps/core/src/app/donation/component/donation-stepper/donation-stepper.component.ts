@@ -175,6 +175,9 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       box: {
         category: this.categoryForm.getRawValue().category,
         description: this.descriptionForm.getRawValue().description
+      },
+      user: {
+        uuid: "f7feadfa-d33a-4ed3-8bf5-b0e090b7381c"
       }
     };
     this.resume = [];

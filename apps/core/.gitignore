@@ -32,3 +32,6 @@ npm-debug.log*
 
 # Builds
 /android
+
+# To hide secret variables
+src/environments/environment.secret.ts
