@@ -6,7 +6,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DonationService } from 'src/app/business-core/service/donation.service';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
-import { Donation } from '../../model/donation';
+import { Donation, DONATION_STATE } from '../../model/donation';
 import { Geolocation } from '../../model/geolocation';
 
 @UntilDestroy()
@@ -176,6 +176,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
         category: this.categoryForm.getRawValue().category,
         description: this.descriptionForm.getRawValue().description
       },
+      state: DONATION_STATE.CREATED,
+      transactions: [],
       user: {
         uuid: "f7feadfa-d33a-4ed3-8bf5-b0e090b7381c"
       }
