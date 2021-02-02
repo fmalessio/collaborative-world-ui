@@ -53,10 +53,9 @@
         <br />
         <h4 *ngIf="!allStepsValid" class="error">Corrija la información antes de continuar</h4>
         <div *ngIf="allStepsValid">
-          <ion-item *ngFor="let item of resume">
-            <ion-label>{{item.label}}</ion-label>
-            <ion-label class="ion-text-wrap">{{item.value}}</ion-label>
-          </ion-item>
+          <app-donation-details 
+            [donation]="donation" 
+            [withStatus]="false"></app-donation-details>
           <br />
           <ion-button (click)="save()">
             <ion-icon slot="start" name="checkmark-outline"></ion-icon>

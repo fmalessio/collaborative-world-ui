@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { DonationDetailsComponent } from '../component/donation-details/donation-details.component';
 import { NotificationListComponent } from '../component/notification-list/notification-list.component';
 import { HeaderComponent } from './component/header/header.component';
 import { MenuComponent } from './component/menu/menu.component';
@@ -17,7 +18,8 @@ import { DonationStatePipe } from './pipe/donation-state.pipe';
     HeaderComponent,
     NotificationsComponent,
     NotificationListComponent,
-    DonationStatePipe
+    DonationStatePipe,
+    DonationDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,11 @@ import { DonationStatePipe } from './pipe/donation-state.pipe';
     MenuComponent,
     HeaderComponent,
     NotificationsComponent,
+    DonationDetailsComponent,
     // Pipes
+    DonationStatePipe
+  ],
+  providers: [
     DonationStatePipe
   ]
 })

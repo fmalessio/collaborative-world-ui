@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BusinessCoreModule } from '../business-core/business-core.module';
+import { DonationDetailsComponent } from '../component/donation-details/donation-details.component';
 import { MapComponent } from '../component/map/map.component';
 import { PlaceAutocompleteComponent } from '../component/place-autocomplete/place-autocomplete.component';
 import { SharedModule } from '../shared/shared.module';

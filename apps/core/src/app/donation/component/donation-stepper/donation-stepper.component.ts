@@ -30,9 +30,8 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   private stepsForm: Array<FormGroup> = [];
   private currentPosition: number = 0;
   // Confirmation
-  private donation: Donation;
+  donation: Donation;
   allStepsValid: boolean = false;
-  resume: Array<{ label: string, value: string }> = [];
   private saved: boolean = false;
   finalMessage: string;
 
@@ -101,7 +100,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
 
   async showFinalMessage() {
     const message = this.donation.follow ?
-      'Es una donación con seguimiento: Recuerda ingresar a "Finalizar donación" e imprimir el código QR de la donación y pegarlo en paquete.' :
+      'Es una donación con seguimiento: Recuerda ingresar a "Paquetes pendientes" e imprimir el código QR de la donación y pegarlo en paquete.' :
       'Tu donación ya está disponible, espera que algún colaborador la retire.';
     const alert = await this.alertController.create({
       cssClass: '',
@@ -162,12 +161,12 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   private checkAllStepsValid(): boolean {
     let invalid = this.stepsForm.find(element => element.invalid);
     if (!invalid) {
-      this.buildResume();
+      this.buildDonation();
     }
     return !invalid;
   }
 
-  private buildResume() {
+  private buildDonation() {
     this.donation = {
       geolocation: this.geolocationForm.getRawValue().geolocation,
       follow: this.trackForm.getRawValue().follow,
@@ -182,12 +181,6 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
         uuid: "f7feadfa-d33a-4ed3-8bf5-b0e090b7381c"
       }
     };
-    this.resume = [];
-    this.resume.push({ label: 'Categoría', value: this.donation.box.category.name });
-    this.resume.push({ label: 'Cantidad', value: this.donation.amount.toString() });
-    this.resume.push({ label: 'Descripción', value: this.donation.box.description });
-    this.resume.push({ label: 'Con seguimiento', value: this.donation.follow ? 'Sí' : 'No' });
-    this.resume.push({ label: 'Dirección', value: this.donation.geolocation.address });
   }
 
 }
