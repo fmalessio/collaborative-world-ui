@@ -2,7 +2,7 @@ import { Box } from './box';
 import { Geolocation } from './geolocation';
 
 export class Donation {
-    id?: string;
+    uuid?: string;
     geolocation: Geolocation;
     box: Box;
     follow: boolean;

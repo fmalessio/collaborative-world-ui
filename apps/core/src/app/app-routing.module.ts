@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./donation-list/donation-list.module').then(m => m.DonationListModule)
   },
   {
+    path: 'xcode',
+    loadChildren: () => import('./xcode/xcode.module').then(m => m.XCodeModule)
+  },
+  {
     path: '',
     redirectTo: 'folder/Inbox',
     pathMatch: 'full'

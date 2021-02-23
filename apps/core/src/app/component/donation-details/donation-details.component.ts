@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Donation } from 'src/app/donation/model/donation';
 import { DonationStatePipe } from 'src/app/shared/pipe/donation-state.pipe';
 
@@ -11,9 +12,13 @@ export class DonationDetailsComponent implements OnInit {
 
   @Input() donation: Donation;
   @Input() withStatus: boolean = true;
+
   resume: Array<{ label: string, value: string }>;
 
-  constructor(private donationStatePipe: DonationStatePipe) { }
+  constructor(
+    private donationStatePipe: DonationStatePipe,
+    public modalCtrl: ModalController
+  ) { }
 
   ngOnInit() {
     this.resume = [];
@@ -28,6 +33,12 @@ export class DonationDetailsComponent implements OnInit {
       });
     }
     this.resume.push({ label: 'Dirección', value: this.donation.geolocation.address });
+  }
+
+  close() {
+    if (this.modalCtrl) {
+      this.modalCtrl.dismiss();
+    }
   }
 
 }
