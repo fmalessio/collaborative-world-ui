@@ -37,9 +37,9 @@ export class AppComponent {
       var dynamicScripts = [
         `https://maps.googleapis.com/maps/api/js?region=AR&libraries=places&key=${environment.googleMapsKey}`
       ];
-      for (var i = 0; i < dynamicScripts.length; i++) {
+      for (var j = 0; j < dynamicScripts.length; j++) {
         let node = document.createElement('script');
-        node.src = dynamicScripts[i];
+        node.src = dynamicScripts[j];
         node.type = 'text/javascript';
         node.async = false;
         document.getElementsByTagName('head')[0].appendChild(node);
