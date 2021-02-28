@@ -3,7 +3,7 @@ Mundo Colaborativo UI: Busca conectar personas que poseen bienes que no utilicen
 
 ### Build
 ```bash
-ionic build --prod\
+ionic build --prod
 ionic capacitor build android
 ```
 
@@ -24,22 +24,21 @@ ionic capacitor run andoid
 
 ### Inicialización
 ```bash
-Este proyecto se creó utilizando Ionic, utilizando los siguientes comandos:\
-ionic init --multi-app\
-cd apps/core\
-ionic start "collaborative-world-ui"\
-    > type: Angular\
-    > template: Sidebar\
-    > capacitor: no\
-touch capacitor.config.json > info\
-npm install @capacitor/core @capacitor/cli\
-angular.json > replace all "app:" for "com.fmalessio.collaborativeworld.ui:"\
-ionic build\
-ionic capacitor add android\
+Este proyecto se creó utilizando Ionic, utilizando los siguientes comandos:
+ionic init --multi-app
+cd apps/core
+ionic start "collaborative-world-ui"
+    > type: Angular
+    > template: Sidebar
+    > capacitor: no
+touch capacitor.config.json > info
+npm install @capacitor/core @capacitor/cli
+angular.json > replace all "app:" for "com.fmalessio.collaborativeworld.ui:"
+ionic build
+ionic capacitor add android
 ```
 
 ### Comandos útiles
 ```bash
-ionic generate module [name] --routing=true/false\
-ionic generate module [name] --route [name] --module app.module
+ionic generate module [name] --routing=true/false
 ```
