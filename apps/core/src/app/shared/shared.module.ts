@@ -10,6 +10,7 @@ import { MenuComponent } from './component/menu/menu.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
 import { SelectRolComponent } from './component/select-rol/select-rol.component';
 import { DonationStatePipe } from './pipe/donation-state.pipe';
+import { StorageService } from './service/storage.service';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,13 @@ import { DonationStatePipe } from './pipe/donation-state.pipe';
     HeaderComponent,
     NotificationsComponent,
     DonationDetailsComponent,
-    // Pipes
-    DonationStatePipe
+    // Providers
+    DonationStatePipe,
+    StorageService
   ],
   providers: [
-    DonationStatePipe
+    DonationStatePipe,
+    StorageService
   ]
 })
 export class SharedModule { }
