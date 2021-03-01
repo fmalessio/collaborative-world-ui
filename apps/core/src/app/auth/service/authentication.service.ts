@@ -1,9 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from 'src/app/shared/service/storage.service';
+import { environment } from 'src/environments/environment';
+import { AuthDTO, LoginUserDTO } from '../dto/auth.dto';
 
+const AUTH_ENDPOINT = environment.endpoint + '/auth';
+
+@UntilDestroy()
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +21,8 @@ export class AuthenticationService {
   constructor(
     private router: Router,
     private platform: Platform,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private http: HttpClient
   ) {
     this.platform.ready().then(() => {
       this.ifLoggedIn();
@@ -29,19 +37,22 @@ export class AuthenticationService {
     });
   }
 
-  login() {
-    var dummy_response = {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZtYWxlc3NpbyIsImlhdCI6MTYxNDUyNzM2MSwiZXhwIjoxNjE0NzAwMTYxfQ._0Heb2VgbI98WhWoY3f5LQCa6yA2ljcTKhkge0wtEWw"
-    };
-    this.storageService.set('access_token', dummy_response).then((response) => {
-      this.router.navigate(['folder/Welcome']);
-      this.authState.next(true);
-    });
+  login(loginUser: LoginUserDTO) {
+    this.http.post<AuthDTO>(AUTH_ENDPOINT + '/login', loginUser)
+      .pipe(untilDestroyed(this)).subscribe(
+        authDTO => {
+          this.storageService.set('access_token', authDTO.access_token).then(() => {
+            this.router.navigate(['folder/Welcome']);
+            this.authState.next(true);
+          });
+        },
+        (error) => console.error(JSON.stringify(error))
+      );
   }
 
   logout() {
     this.storageService.remove('access_token').then(() => {
-      this.router.navigate(['login']);
+      this.router.navigate(['auth/login']);
       this.authState.next(false);
     });
   }

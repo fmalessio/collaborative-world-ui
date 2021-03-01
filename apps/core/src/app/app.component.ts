@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from './auth/service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +16,7 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private router: Router,
-    private authenticationService: AuthenticationService
+    private statusBar: StatusBar
   ) {
     this.initializeApp();
     this.loadAPI = new Promise((resolve) => {
@@ -56,15 +52,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-      this.authenticationService.authState.subscribe(state => {
-        console.log(`User loged: ${state}`);
-        if (state) {
-          this.router.navigate(['folder/Welcome']);
-        } else {
-          this.router.navigate(['auth/login']);
-        }
-      });
     });
   }
 }

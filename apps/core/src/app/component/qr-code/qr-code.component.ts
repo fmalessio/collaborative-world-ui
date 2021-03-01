@@ -16,7 +16,7 @@ export class QrCodeComponent implements OnInit {
 
   ngOnInit() {
     const toEncode: Observable<string> = this.route.params.pipe(map(p => p.toEncode));
-    toEncode.subscribe(toEncodeValue => console.log(toEncodeValue));        
+    toEncode.subscribe(toEncodeValue => console.log(toEncodeValue));
   }
 
 }
