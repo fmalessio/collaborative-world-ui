@@ -56,7 +56,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.authenticationService.authState.subscribe(state => {
+      this.authenticationService.getAuthState().subscribe(state => {
         console.log(`User logged: ${state}`);
         this.isAuthenticated = state;
       });

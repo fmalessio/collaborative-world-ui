@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './component/login/login.component';
+import { SigninComponent } from './component/signin/signin.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,11 @@ const routes: Routes = [
   {
     path: 'do/:action',
     component: LoginComponent
-  }
+  },
+  {
+    path: 'signin',
+    component: SigninComponent
+  },
 ];
 
 @NgModule({

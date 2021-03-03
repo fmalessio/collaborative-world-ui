@@ -19,21 +19,13 @@ export class AuthenticationService {
   authState = new BehaviorSubject(false);
 
   constructor(
-    private router: Router,
     private platform: Platform,
     private storageService: StorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.platform.ready().then(() => {
       this.ifLoggedIn();
-    });
-  }
-
-  ifLoggedIn() {
-    this.storageService.get('access_token').then((response) => {
-      if (response) {
-        this.authState.next(true);
-      }
     });
   }
 
@@ -42,8 +34,8 @@ export class AuthenticationService {
       .pipe(untilDestroyed(this)).subscribe(
         authDTO => {
           this.storageService.set('access_token', authDTO.access_token).then(() => {
-            this.router.navigate(['folder/Welcome']);
             this.authState.next(true);
+            this.router.navigate(['folder/Welcome']);
           });
         },
         (error) => console.error(JSON.stringify(error))
@@ -52,12 +44,26 @@ export class AuthenticationService {
 
   logout() {
     this.storageService.remove('access_token').then(() => {
-      this.router.navigate(['auth/login']);
       this.authState.next(false);
+      this.router.navigate(['auth/login']);
     });
   }
 
-  isAuthenticated() {
+  private ifLoggedIn(): Promise<boolean> {
+    return this.storageService.get('access_token').then((response) => {
+      if (response) {
+        this.authState.next(true);
+        return true;
+      }
+      return false;
+    });
+  }
+
+  getAuthState() {
+    return this.authState.asObservable();
+  }
+
+  isAuthenticated(): boolean {
     return this.authState.value;
   }
 }
