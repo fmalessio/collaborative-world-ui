@@ -7,6 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "start:mock": "ng serve --configuration=mock",
+    "start:stg": "ng serve --configuration=stg",
+    "start:prod": "ng serve --configuration=production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
