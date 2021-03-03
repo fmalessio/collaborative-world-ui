@@ -8,7 +8,6 @@ import { CategoryListComponent } from './component/category-list/category-list.c
 import { DescriptionFormComponent } from './component/description-form/description-form.component';
 import { DonationStepperComponent } from './component/donation-stepper/donation-stepper.component';
 import { LocationStepComponent } from './component/location-step/location-step.component';
-import { MapStepComponent } from './component/map-step/map-step.component';
 import { TrackFormComponent } from './component/track-form/track-form.component';
 import { DonationRoutingModule } from './donation-routing.module';
 import { CategoryService } from './service/category.service';
@@ -19,7 +18,6 @@ import { CategoryService } from './service/category.service';
     CategoryListComponent,
     DescriptionFormComponent,
     TrackFormComponent,
-    MapStepComponent,
     PlaceAutocompleteComponent,
     LocationStepComponent
   ],

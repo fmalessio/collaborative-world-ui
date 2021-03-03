@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '../auth/auth.module';
 import { AuthInterceptor } from '../auth/interceptor/auth.interceptor';
 import { DonationDetailsComponent } from '../component/donation-details/donation-details.component';
 import { NotificationListComponent } from '../component/notification-list/notification-list.component';
@@ -22,8 +21,9 @@ import { StorageService } from './service/storage.service';
     HeaderComponent,
     NotificationsComponent,
     NotificationListComponent,
-    DonationStatePipe,
-    DonationDetailsComponent
+    DonationDetailsComponent,
+    // Providers
+    DonationStatePipe
   ],
   imports: [
     CommonModule,
@@ -37,7 +37,6 @@ import { StorageService } from './service/storage.service';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule,
     RouterModule,
     // Components
     MenuComponent,
@@ -45,8 +44,7 @@ import { StorageService } from './service/storage.service';
     NotificationsComponent,
     DonationDetailsComponent,
     // Providers
-    DonationStatePipe,
-    StorageService
+    DonationStatePipe
   ],
   providers: [
     DonationStatePipe,

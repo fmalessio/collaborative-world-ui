@@ -29,7 +29,7 @@ export class DonationListComponent implements OnInit {
     return await modal.present();
   }
 
-  private getLastUpdate(donation: Donation) {
+  getLastUpdate(donation: Donation) {
     return UPDATED_AT_FOR_STATE(donation.transactions, donation.state);
   }
 

@@ -18,6 +18,8 @@ export const secretEnv = {
 ### Start
 ```bash
 npm start
+npm run-script start:prod
+npm run-script start:stg
 npm run-script start:mock
 ionic capacitor run andoid
 ```
