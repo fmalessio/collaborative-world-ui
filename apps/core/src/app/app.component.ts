@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
@@ -10,7 +11,7 @@ import { AuthenticationService } from './auth/service/authentication.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   loadAPI: Promise<any>;
   isAuthenticated: boolean;
@@ -19,7 +20,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.initializeApp();
     this.loadAPI = new Promise((resolve) => {
@@ -28,7 +30,13 @@ export class AppComponent {
     });
   }
 
-  public loadScript() {
+  ngOnInit() {
+    if (!this.authenticationService.isAuthenticated()) {
+      this.router.navigate(['auth/login']);
+    }
+  }
+
+  loadScript() {
     var isFound = false;
     var scripts = document.getElementsByTagName("script");
     for (var i = 0; i < scripts.length; ++i) {
@@ -51,11 +59,10 @@ export class AppComponent {
     }
   }
 
-  initializeApp() {
+  private initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
       this.authenticationService.getAuthState().subscribe(state => {
         console.log(`User logged: ${state}`);
         this.isAuthenticated = state;
