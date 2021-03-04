@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BusinessCoreModule } from '../business-core/business-core.module';
 import { PlaceAutocompleteComponent } from '../component/place-autocomplete/place-autocomplete.component';
 import { SharedModule } from '../shared/shared.module';
@@ -30,6 +30,9 @@ import { CategoryService } from './service/category.service';
   ],
   providers: [
     CategoryService
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class DonationModule { }
