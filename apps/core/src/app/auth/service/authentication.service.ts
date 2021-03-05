@@ -32,10 +32,10 @@ export class AuthenticationService {
   login(loginUser: LoginUserDTO) {
     this.http.post<AuthDTO>(AUTH_ENDPOINT + '/login', loginUser)
       .pipe(untilDestroyed(this)).subscribe(
-        authDTO => {
+        (authDTO: AuthDTO) => {
           this.storageService.set('access_token', authDTO.access_token).then(() => {
             this.authState.next(true);
-            this.router.navigate(['folder/Welcome']);
+            this.goLoggedin();
           });
         },
         (error) => console.error(JSON.stringify(error))
@@ -45,19 +45,7 @@ export class AuthenticationService {
   logout() {
     this.storageService.remove('access_token').then(() => {
       this.authState.next(false);
-      this.router.navigate(['auth/login']);
-    });
-  }
-
-  private ifLoggedIn(): Promise<boolean> {
-    return this.storageService.get('access_token').then((response) => {
-      if (response) {
-        this.authState.next(true);
-        this.router.navigate(['folder/Welcome']);
-        return true;
-      }
-      this.router.navigate(['auth/login']);
-      return false;
+      this.goLoggedout();
     });
   }
 
@@ -68,4 +56,27 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return this.authState.value;
   }
+
+  private ifLoggedIn() {
+    return this.storageService.get('access_token').then((response) => {
+      if (response) {
+        this.http.get<boolean>(AUTH_ENDPOINT + '/alive')
+          .pipe(untilDestroyed(this)).subscribe((isAlive) => {
+            this.authState.next(isAlive);
+            isAlive ? this.goLoggedin() : this.goLoggedout();
+          });
+      } else {
+        this.goLoggedout();
+      }
+    });
+  }
+
+  private goLoggedout() {
+    this.router.navigate(['auth/login']);
+  }
+
+  private goLoggedin() {
+    this.router.navigate(['folder/Welcome']);
+  }
+
 }
