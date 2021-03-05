@@ -53,8 +53,10 @@ export class AuthenticationService {
     return this.storageService.get('access_token').then((response) => {
       if (response) {
         this.authState.next(true);
+        this.router.navigate(['folder/Welcome']);
         return true;
       }
+      this.router.navigate(['auth/login']);
       return false;
     });
   }

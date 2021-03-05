@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
@@ -20,20 +19,13 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authenticationService: AuthenticationService,
-    private router: Router
+    private authenticationService: AuthenticationService
   ) {
     this.initializeApp();
     this.loadAPI = new Promise((resolve) => {
       this.loadScript();
       resolve(true);
     });
-  }
-
-  ngOnInit() {
-    if (!this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['auth/login']);
-    }
   }
 
   loadScript() {
