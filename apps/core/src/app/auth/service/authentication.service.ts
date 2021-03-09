@@ -6,7 +6,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from 'src/app/shared/service/storage.service';
 import { environment } from 'src/environments/environment';
-import { AuthDTO, LoginUserDTO } from '../dto/auth.dto';
+import { LoggedUser, LOGGED_USER_STORAGE, LoginUserDTO } from '../dto/auth.dto';
 
 const AUTH_ENDPOINT = environment.endpoint + '/auth';
 
@@ -17,6 +17,7 @@ const AUTH_ENDPOINT = environment.endpoint + '/auth';
 export class AuthenticationService {
 
   authState = new BehaviorSubject(false);
+  currentUser = new BehaviorSubject<LoggedUser>(undefined);
 
   constructor(
     private platform: Platform,
@@ -30,11 +31,12 @@ export class AuthenticationService {
   }
 
   login(loginUser: LoginUserDTO) {
-    this.http.post<AuthDTO>(AUTH_ENDPOINT + '/login', loginUser)
+    this.http.post<LoggedUser>(AUTH_ENDPOINT + '/login', loginUser)
       .pipe(untilDestroyed(this)).subscribe(
-        (authDTO: AuthDTO) => {
-          this.storageService.set('access_token', authDTO.access_token).then(() => {
+        (loggedUser: LoggedUser) => {
+          this.storageService.set(LOGGED_USER_STORAGE, loggedUser).then(() => {
             this.authState.next(true);
+            this.currentUser.next(loggedUser);
             this.goLoggedin();
           });
         },
@@ -43,8 +45,9 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.storageService.remove('access_token').then(() => {
+    this.storageService.remove(LOGGED_USER_STORAGE).then(() => {
       this.authState.next(false);
+      this.currentUser.next(undefined);
       this.goLoggedout();
     });
   }
@@ -58,7 +61,7 @@ export class AuthenticationService {
   }
 
   private ifLoggedIn() {
-    return this.storageService.get('access_token').then((response) => {
+    return this.storageService.get(LOGGED_USER_STORAGE).then((response) => {
       if (response) {
         this.http.get<boolean>(AUTH_ENDPOINT + '/alive')
           .pipe(untilDestroyed(this)).subscribe((isAlive) => {
