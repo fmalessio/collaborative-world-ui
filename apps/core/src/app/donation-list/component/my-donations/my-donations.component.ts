@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { DonationService } from 'src/app/business-core/service/donation.service';
 import { Donation } from 'src/app/donation/model/donation';
 
@@ -11,13 +12,15 @@ import { Donation } from 'src/app/donation/model/donation';
 })
 export class MyDonationsComponent implements OnInit {
 
-  private userUuidMock: string = 'f7feadfa-d33a-4ed3-8bf5-b0e090b7381c';
   donations: Donation[] = [];
 
-  constructor(private donationService: DonationService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private donationService: DonationService
+  ) { }
 
   ngOnInit() {
-    this.donationService.findByUser(this.userUuidMock)
+    this.donationService.findByUser(this.authService.getCurrentUserValue().uuid)
       .pipe(untilDestroyed(this))
       .subscribe(data => this.donations = data);
   }

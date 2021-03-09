@@ -60,6 +60,10 @@ export class AuthenticationService {
     return this.authState.value;
   }
 
+  getCurrentUserValue() {
+    return this.currentUser.value;
+  }
+
   private ifLoggedIn() {
     return this.storageService.get(LOGGED_USER_STORAGE).then((response) => {
       if (response) {
