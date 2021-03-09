@@ -17,15 +17,14 @@ import { Geolocation } from '../../model/geolocation';
 })
 export class DonationStepperComponent implements OnInit, AfterViewInit {
 
-  stepperSize: string = 'medium';
   private stateStepper: Components.StateStepper;
   private stepsLegth: number = 5;
   @ViewChild(IonSlides) slides: IonSlides;
   // Forms
-  private categoryForm: FormGroup;
-  private descriptionForm: FormGroup;
-  private trackForm: FormGroup;
-  private geolocationForm: FormGroup;
+  categoryForm: FormGroup;
+  descriptionForm: FormGroup;
+  trackForm: FormGroup;
+  geolocationForm: FormGroup;
   // Forms manager
   private stepsForm: Array<FormGroup> = [];
   private currentPosition: number = 0;

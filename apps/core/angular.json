@@ -42,6 +42,30 @@
             "scripts": []
           },
           "configurations": {
+            "stg": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stg.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
             "mock": {
               "fileReplacements": [
                 {
@@ -107,6 +131,9 @@
             "mock": {
               "browserTarget": "com.fmalessio.collaborativeworld.ui:build:mock"
             },
+            "stg": {
+              "browserTarget": "com.fmalessio.collaborativeworld.ui:build:stg"
+            },
             "ci": {
               "progress": false
             }
@@ -155,7 +182,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -170,6 +199,9 @@
             },
             "mock": {
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:mock"
+            },
+            "stg": {
+              "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:stg"
             },
             "ci": {
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:ci"
@@ -187,6 +219,9 @@
             },
             "mock": {
               "browserTarget": "com.fmalessio.collaborativeworld.ui:build:mock"
+            },
+            "stg": {
+              "browserTarget": "com.fmalessio.collaborativeworld.ui:serve:stg"
             }
           }
         },
@@ -204,6 +239,10 @@
             "mock": {
               "cordovaBuildTarget": "com.fmalessio.collaborativeworld.ui:ionic-cordova-build:mock",
               "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:mock"
+            },
+            "stg": {
+              "cordovaBuildTarget": "com.fmalessio.collaborativeworld.ui:ionic-cordova-build:stg",
+              "devServerTarget": "com.fmalessio.collaborativeworld.ui:serve:stg"
             }
           }
         }

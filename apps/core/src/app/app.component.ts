@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from './auth/service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,13 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {
 
   loadAPI: Promise<any>;
+  isAuthenticated: boolean;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authenticationService: AuthenticationService
   ) {
     this.initializeApp();
     this.loadAPI = new Promise((resolve) => {
@@ -25,7 +28,7 @@ export class AppComponent {
     });
   }
 
-  public loadScript() {
+  loadScript() {
     var isFound = false;
     var scripts = document.getElementsByTagName("script");
     for (var i = 0; i < scripts.length; ++i) {
@@ -48,10 +51,14 @@ export class AppComponent {
     }
   }
 
-  initializeApp() {
+  private initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.authenticationService.getAuthState().subscribe(state => {
+        console.log(`User logged: ${state}`);
+        this.isAuthenticated = state;
+      });
     });
   }
 }

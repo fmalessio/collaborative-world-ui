@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Collaborative World
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div id="login-content">
+    <ion-button [routerLink]="['/auth/registration']" expand="block" color="primary">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      Registrarme
+    </ion-button>
+    <ion-button [routerLink]="['/auth/signin']" expand="block" color="danger">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      Ingresar
+    </ion-button>
+  </div>
+</ion-content>

@@ -39,7 +39,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR, Role.COLLABORATOR]
     }, {
         title: 'Cerrar sesión',
-        url: '/folder/logout',
+        url: '/auth/do/logout',
         icon: 'power',
         roles: [Role.DONOR, Role.COLLABORATOR]
     }
