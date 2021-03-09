@@ -70,6 +70,7 @@ export class AuthenticationService {
         this.http.get<boolean>(AUTH_ENDPOINT + '/alive')
           .pipe(untilDestroyed(this)).subscribe((isAlive) => {
             this.authState.next(isAlive);
+            this.currentUser.next(response);
             isAlive ? this.goLoggedin() : this.goLoggedout();
           });
       } else {
