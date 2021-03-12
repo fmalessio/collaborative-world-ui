@@ -30,8 +30,7 @@ export enum DONATION_STATE {
     DONATED_AGAIN = 'DONATED_AGAIN'
 }
 
-export const UPDATED_AT_FOR_STATE = (
-    transactions: DonationTransaction[], state: string) => {
+export const UPDATED_AT_FOR_STATE = (transactions: DonationTransaction[], state: string) => {
     return transactions.find(t => t.state === state).generationDate;
 }
 

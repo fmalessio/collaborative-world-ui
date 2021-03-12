@@ -9,7 +9,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR]
     }, {
         title: 'Paquetes pendientes',
-        url: '/folder/pending-packages',
+        url: '/donation-list/my-pending',
         icon: 'briefcase',
         roles: [Role.DONOR]
     }, {

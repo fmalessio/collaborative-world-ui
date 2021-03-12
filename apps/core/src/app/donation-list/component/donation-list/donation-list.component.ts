@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { DonationDetailsComponent } from 'src/app/component/donation-details/donation-details.component';
-import { Donation, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation';
+import { Donation, DONATION_STATE, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
 @Component({
@@ -13,6 +13,7 @@ import { Donation, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation'
 export class DonationListComponent implements OnInit {
 
   @Input() donations: Donation[] = [];
+  @Output() onDonationStateChange = new EventEmitter<{ uuid: string, state: DONATION_STATE }>();
 
   constructor(public modalController: ModalController) { }
 
@@ -24,6 +25,17 @@ export class DonationListComponent implements OnInit {
       componentProps: {
         donation: donation,
         swipeToClose: true,
+      }
+    });
+    modal.onDidDismiss().then((dismiss: any) => {
+      if (dismiss && dismiss.data) {
+        const event = dismiss.data.event;
+        if (event === 'STATE_CHANGED') {
+          this.onDonationStateChange.emit({
+            uuid: dismiss.data.uuid,
+            state: dismiss.data.state
+          });
+        }
       }
     });
     return await modal.present();
