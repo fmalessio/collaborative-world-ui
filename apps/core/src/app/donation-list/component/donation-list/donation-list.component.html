@@ -1,4 +1,4 @@
-<ion-list>
+<ion-list *ngIf="donations.length > 0">
   <ion-item button *ngFor="let item of donations" (click)="showDetailsModal(item)">
     <ion-label class="ion-text-wrap">
       <h3>{{ item.box.category.name }} ({{ item.amount }})</h3>
@@ -6,3 +6,4 @@
     </ion-label>
   </ion-item>
 </ion-list>
+<app-empty-page *ngIf="donations.length === 0"></app-empty-page>
