@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptor } from '../auth/interceptor/auth.interceptor';
 import { DonationDetailsComponent } from '../component/donation-details/donation-details.component';
 import { NotificationListComponent } from '../component/notification-list/notification-list.component';
@@ -30,7 +31,8 @@ import { StorageService } from './service/storage.service';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    IonicStorageModule.forRoot()
   ],
   exports: [
     CommonModule,
