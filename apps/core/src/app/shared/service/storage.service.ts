@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Plugins } from "@capacitor/core";
-const { Storage } = Plugins;
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  async set(key: string, value: any): Promise<void> {
-    await Storage.set({
-      key: key,
-      value: JSON.stringify(value)
-    });
+  constructor(private storage: Storage) { }
+
+  set(key: string, value: any): Promise<void> {
+    return this.storage.set(key, value);
   }
 
-  async get(key: string): Promise<any> {
-    const item = await Storage.get({ key: key });
-    return JSON.parse(item.value);
+  get(key: string): Promise<any> {
+    return this.storage.get(key);
   }
 
-  async remove(key: string): Promise<void> {
-    await Storage.remove({
-      key: key
-    });
+  remove(key: string): Promise<void> {
+    return this.storage.remove(key);
   }
 }

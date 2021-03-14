@@ -4,7 +4,7 @@ Mundo Colaborativo UI: Busca conectar personas que poseen bienes que no utilicen
 ### Build
 ```bash
 ionic build --prod
-ionic capacitor build android
+ionic capacitor build android --configuration=stg
 ```
 
 ### Prerequisite
