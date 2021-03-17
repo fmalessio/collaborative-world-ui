@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptor } from '../auth/interceptor/auth.interceptor';
 import { DonationDetailsComponent } from '../component/donation-details/donation-details.component';
+import { DonationViewComponent } from '../component/donation-view/donation-view.component';
 import { NotificationListComponent } from '../component/notification-list/notification-list.component';
 import { HeaderComponent } from './component/header/header.component';
 import { MenuComponent } from './component/menu/menu.component';
@@ -23,6 +24,7 @@ import { StorageService } from './service/storage.service';
     NotificationsComponent,
     NotificationListComponent,
     DonationDetailsComponent,
+    DonationViewComponent,
     // Providers
     DonationStatePipe
   ],
@@ -45,6 +47,7 @@ import { StorageService } from './service/storage.service';
     HeaderComponent,
     NotificationsComponent,
     DonationDetailsComponent,
+    DonationViewComponent,
     // Providers
     DonationStatePipe
   ],

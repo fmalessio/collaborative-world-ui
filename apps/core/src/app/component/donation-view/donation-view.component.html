@@ -1,0 +1,26 @@
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="close()" fill="clear" color="primary">
+        Cerrar <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <app-donation-details [donation]="donation"></app-donation-details>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <ion-button *ngIf="withQR()" [routerLink]="['/xcode', donation.uuid]" (click)="close()">
+        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+        Imprimir QR
+      </ion-button>
+      <ion-button *ngIf="withMarkAsReadyToTravel()" (click)="markAsReadyToTravel()">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        Marcar listo para entrega
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

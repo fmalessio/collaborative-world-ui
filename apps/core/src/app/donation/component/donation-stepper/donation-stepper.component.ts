@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, IonSlides } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { DonationService } from 'src/app/business-core/service/donation.service';
 import { Components } from 'state-stepper/loader';
 import { Category } from '../../model/category';
@@ -38,6 +39,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
     public alertController: AlertController,
     private fb: FormBuilder,
     private donationService: DonationService,
+    private authService: AuthenticationService,
     private router: Router) {
   }
 
@@ -109,7 +111,6 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       buttons: [{
         text: 'OK',
         handler: () => {
-          console.log('Confirm Okay');
           this.router.navigate(["/folder/Inbox"]);
         }
       }]
@@ -177,7 +178,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       state: DONATION_STATE.CREATED,
       transactions: [],
       user: {
-        uuid: "f7feadfa-d33a-4ed3-8bf5-b0e090b7381c"
+        uuid: this.authService.getCurrentUserValue().uuid
       }
     };
   }

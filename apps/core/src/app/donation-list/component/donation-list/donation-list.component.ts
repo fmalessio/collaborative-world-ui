@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { DonationDetailsComponent } from 'src/app/component/donation-details/donation-details.component';
+import { DonationViewComponent } from 'src/app/component/donation-view/donation-view.component';
 import { Donation, DONATION_STATE, UPDATED_AT_FOR_STATE } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
@@ -21,7 +21,7 @@ export class DonationListComponent implements OnInit {
 
   async showDetailsModal(donation: Donation) {
     const modal = await this.modalController.create({
-      component: DonationDetailsComponent,
+      component: DonationViewComponent,
       componentProps: {
         donation: donation,
         swipeToClose: true,
