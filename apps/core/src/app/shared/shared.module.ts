@@ -13,7 +13,9 @@ import { HeaderComponent } from './component/header/header.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
 import { SelectRolComponent } from './component/select-rol/select-rol.component';
+import { ProgressBarInterceptor } from './interceptor/progress-bar.interceptor';
 import { DonationStatePipe } from './pipe/donation-state.pipe';
+import { ProgressBarService } from './service/progress-bar.service';
 import { StorageService } from './service/storage.service';
 
 @NgModule({
@@ -49,11 +51,14 @@ import { StorageService } from './service/storage.service';
     DonationDetailsComponent,
     DonationViewComponent,
     // Providers
-    DonationStatePipe
+    DonationStatePipe,
+    ProgressBarService
   ],
   providers: [
     DonationStatePipe,
     StorageService,
+    ProgressBarService,
+    { provide: HTTP_INTERCEPTORS, useClass: ProgressBarInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   schemas: [

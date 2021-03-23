@@ -6,7 +6,7 @@ import { secretEnv } from "./environment.secret";
 
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:3000',
+  endpoint: 'https://collaborative-world-service.herokuapp.com',
   googleMapsKey: secretEnv.GOOGLE_MAPS_KEY
 };
 
