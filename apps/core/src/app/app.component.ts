@@ -59,7 +59,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.progressBarService.getShowProgressBar().subscribe(show => {
-        console.log(show);
         this.showProgressBar = show;
       });
       this.authenticationService.getAuthState().subscribe(state => {
