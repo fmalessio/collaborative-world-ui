@@ -51,8 +51,7 @@ import { StorageService } from './service/storage.service';
     DonationDetailsComponent,
     DonationViewComponent,
     // Providers
-    DonationStatePipe,
-    ProgressBarService
+    DonationStatePipe
   ],
   providers: [
     DonationStatePipe,

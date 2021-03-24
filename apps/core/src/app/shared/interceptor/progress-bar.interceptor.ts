@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, delay, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { ProgressBarService } from '../service/progress-bar.service';
 
 @Injectable()
@@ -25,8 +25,10 @@ export class ProgressBarInterceptor implements HttpInterceptor {
   }
 
   async endProgressBar() {
-    delay(1000);
-    this.progressBarService.setShow(false);
+    setTimeout(
+      () => this.progressBarService.setShow(false),
+      1000
+    );
   }
 
 }
