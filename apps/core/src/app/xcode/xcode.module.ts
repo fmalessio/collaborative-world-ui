@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
 import { QrCodeModule } from 'ng-qrcode';
+import { FileManagerModule } from '../file-manager/file-manager.module';
 import { SharedModule } from '../shared/shared.module';
 import { ViewComponent } from './view/view.component';
 import { XCodeRoutingModule } from './xcode-routing.module';
@@ -13,11 +12,8 @@ import { XCodeRoutingModule } from './xcode-routing.module';
   imports: [
     XCodeRoutingModule,
     SharedModule,
-    QrCodeModule
-  ],
-  providers: [
-    FileTransfer,
-    File
+    QrCodeModule,
+    FileManagerModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
