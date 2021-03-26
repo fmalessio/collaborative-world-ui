@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './auth/service/authentication.service';
+import { ProgressBarService } from './shared/service/progress-bar.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,14 @@ export class AppComponent {
 
   loadAPI: Promise<any>;
   isAuthenticated: boolean;
+  showProgressBar: boolean = true;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private progressBarService: ProgressBarService
   ) {
     this.initializeApp();
     this.loadAPI = new Promise((resolve) => {
@@ -55,6 +58,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.progressBarService.getShowProgressBar().subscribe(show => {
+        this.showProgressBar = show;
+      });
       this.authenticationService.getAuthState().subscribe(state => {
         console.log(`User logged: ${state}`);
         this.isAuthenticated = state;

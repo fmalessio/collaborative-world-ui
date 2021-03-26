@@ -1,5 +1,10 @@
 <div id="qrCodeWrapper">
   <ion-grid>
+    <ion-row *ngIf="message">
+      <ion-col>
+        {{ message }}
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col>
         <qr-code id="qrdatacode" [value]="value" size="300" errorCorrectionLevel="M"></qr-code>
@@ -12,7 +17,8 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <p class="note"><em>Sugerencia:</em> Le recomendamos que descargue el QR como PDF, y puede enviarlo vía mail para luego imprimirlo.</p>
+        <p class="note"><em>Sugerencia:</em> Le recomendamos que descargue el QR como PDF, y puede enviarlo vía mail
+          para luego imprimirlo.</p>
       </ion-col>
     </ion-row>
   </ion-grid>

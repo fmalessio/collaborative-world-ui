@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { jsPDF } from "jspdf";
+import { FileManagerService } from 'src/app/file-manager/service/file-manager.service';
 
 @Component({
   selector: 'app-view',
@@ -10,17 +11,23 @@ import { jsPDF } from "jspdf";
 export class ViewComponent implements OnInit {
 
   value: string;
+  message: string;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fileManagerService: FileManagerService
   ) { }
 
   ngOnInit() {
-    const plainValue = this.activatedRoute.snapshot.paramMap.get('value');
-    this.value = btoa(plainValue);
+    this.value = this.activatedRoute.snapshot.paramMap.get('value');
   }
 
   printPDF() {
+    // TODO: check if file already exist, open
+    this.generatePDF(`cw-${Date.now()}.pdf`);
+  }
+
+  private generatePDF(fileName: string) {
     var canvas = document.getElementById('qrdatacode')?.getElementsByTagName('canvas')[0];
     if (!canvas) {
       console.error("Canvas not found");
@@ -32,9 +39,9 @@ export class ViewComponent implements OnInit {
     doc.setFont("helvetica");
     doc.setFontSize(9);
     doc.addImage(dataURL, 'JPG', 10, 10, 60, 60)
-      .text(btoa(this.value), 10, 70)
-      .text(new Date().toJSON().slice(0, 10).replace(/-/g, '/'), 10, 75);
-    doc.save(`cw-${Date.now()}.pdf`);
+      .text(new Date().toJSON().slice(0, 10).replace(/-/g, '/'), 10, 70);
+    //.text(this.value, 10, 70)
+    this.fileManagerService.generatePdf(doc, fileName).then(m => this.message = m);
   }
 
 }

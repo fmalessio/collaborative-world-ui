@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { QrCodeModule } from 'ng-qrcode';
+import { FileManagerModule } from '../file-manager/file-manager.module';
 import { SharedModule } from '../shared/shared.module';
 import { ViewComponent } from './view/view.component';
 import { XCodeRoutingModule } from './xcode-routing.module';
@@ -11,7 +12,8 @@ import { XCodeRoutingModule } from './xcode-routing.module';
   imports: [
     XCodeRoutingModule,
     SharedModule,
-    QrCodeModule
+    QrCodeModule,
+    FileManagerModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

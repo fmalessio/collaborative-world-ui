@@ -18,8 +18,8 @@ export const menuItems: MenuItem[] = [
         icon: 'list',
         roles: [Role.DONOR]
     }, {
-        title: 'Calificar Colaborador',
-        url: '/folder/rate-collaborator',
+        title: 'Calificar Recolector',
+        url: '/folder/rate-recollector',
         icon: 'star-half',
         roles: [Role.DONOR]
     }, {

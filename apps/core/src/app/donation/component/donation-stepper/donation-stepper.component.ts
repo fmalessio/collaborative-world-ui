@@ -102,7 +102,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
   async showFinalMessage() {
     const message = this.donation.follow ?
       'Es una donación con seguimiento: Recuerda ingresar a "Paquetes pendientes" e imprimir el código QR de la donación y pegarlo en paquete.' :
-      'Tu donación ya está disponible, espera que algún colaborador la retire.';
+      'Tu donación ya está disponible, espera que algún recolector la retire.';
     const alert = await this.alertController.create({
       cssClass: '',
       header: 'Donación creada!',
