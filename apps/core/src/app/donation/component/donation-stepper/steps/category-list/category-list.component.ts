@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { COMPARE_STRING } from 'src/app/shared/constant/utils';
-import { Category } from '../../model/category';
-import { CategoryService } from '../../service/category.service';
+import { Category } from '../../../../model/category';
+import { CategoryService } from '../../../../service/category.service';
 
 @Component({
   selector: 'app-category-list',

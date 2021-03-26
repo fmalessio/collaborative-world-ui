@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Geolocation } from '../../model/geolocation';
+import { Geolocation } from '../../../../model/geolocation';
 
 @Component({
   selector: 'app-location-step',
