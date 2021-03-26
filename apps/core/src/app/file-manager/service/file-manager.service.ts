@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer/ngx';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { Entry, File } from '@ionic-native/file/ngx';
 import jsPDF from 'jspdf';
-import { throwError } from 'rxjs';
+import { ProgressBarService } from 'src/app/shared/service/progress-bar.service';
+
+const MIME_TYPE_PDF: string = 'application/pdf';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +16,23 @@ export class FileManagerService {
 
   constructor(
     private file: File,
-    private transfer: FileTransfer
+    private transfer: FileTransfer,
+    private documentViewer: DocumentViewer,
+    private progressBarService: ProgressBarService
   ) {
     this.fileTransfer = this.transfer.create();
   }
 
-  downloadPdf(doc: jsPDF): Promise<string> {
+  viewDocument(path: string, mimeType: string, options?: DocumentViewerOptions) {
+    this.documentViewer.viewDocument(
+      path,
+      mimeType,
+      options ? options : {}
+    );
+  }
+
+  generatePdf(doc: jsPDF, fileName: string): Promise<string> {
+    this.progressBarService.setShow(true);
     let pdfOutput = doc.output();
     let buffer = new ArrayBuffer(pdfOutput.length);
     let array = new Uint8Array(buffer);
@@ -27,29 +41,22 @@ export class FileManagerService {
     }
     // Android
     const dir = `${this.file.externalRootDirectory}/Download`;
-    const fileName = `cw-${Date.now()}.pdf`;
     return this.file.writeFile(dir, fileName, buffer)
-      .then((success) => {
-        return "File created Succesfully" + JSON.stringify(success)
+      .then((entry: Entry) => {
+        const options: DocumentViewerOptions = {
+          title: entry.name,
+          email: { enabled: true },
+          print: { enabled: true },
+          openWith: { enabled: true }
+        };
+        this.progressBarService.setShow(false);
+        this.viewDocument(dir + '/' + fileName, MIME_TYPE_PDF, options);
+        return "Archivo PDF creado: " + entry.fullPath;
       })
       .catch((error) => {
-        return "Cannot Create File " + JSON.stringify(error)
+        this.progressBarService.setShow(false);
+        return "No se ha podido crear el archivo: " + JSON.stringify(error);
       });
-  }
-
-  downloadByBlob(blob: Blob, type: string) {
-    const newBlob = new Blob([blob], { type: type });
-    const data = window.URL.createObjectURL(newBlob);
-    console.log(data);
-    this.download(data);
-  }
-
-  download(path: string) {
-    this.fileTransfer.download(path, this.file.dataDirectory + `cw-${Date.now()}.pdf`).then((entry) => {
-      console.log('download complete: ' + entry.toURL());
-    }, (error) => {
-      throwError(error);
-    });
   }
 
   upload() {
@@ -58,12 +65,11 @@ export class FileManagerService {
       fileName: 'name.jpg',
       headers: {}
     };
-
     this.fileTransfer.upload('<file path>', '<api endpoint>', options)
       .then((data) => {
         // todo: success
       }, (err) => {
-        // todo: success
+        // todo: error
       });
   }
 }

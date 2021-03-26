@@ -1,8 +1,8 @@
 <div id="qrCodeWrapper">
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf="message">
       <ion-col>
-        Message: {{ message }}
+        {{ message }}
       </ion-col>
     </ion-row>
     <ion-row>

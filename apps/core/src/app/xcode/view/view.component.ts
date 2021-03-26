@@ -19,11 +19,15 @@ export class ViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const plainValue = this.activatedRoute.snapshot.paramMap.get('value');
-    this.value = btoa(plainValue);
+    this.value = this.activatedRoute.snapshot.paramMap.get('value');
   }
 
   printPDF() {
+    // TODO: check if file already exist, open
+    this.generatePDF(`cw-${Date.now()}.pdf`);
+  }
+
+  private generatePDF(fileName: string) {
     var canvas = document.getElementById('qrdatacode')?.getElementsByTagName('canvas')[0];
     if (!canvas) {
       console.error("Canvas not found");
@@ -35,9 +39,9 @@ export class ViewComponent implements OnInit {
     doc.setFont("helvetica");
     doc.setFontSize(9);
     doc.addImage(dataURL, 'JPG', 10, 10, 60, 60)
-      .text(btoa(this.value), 10, 70)
-      .text(new Date().toJSON().slice(0, 10).replace(/-/g, '/'), 10, 75);
-    this.fileManagerService.downloadPdf(doc).then(m => this.message = m);
+      .text(new Date().toJSON().slice(0, 10).replace(/-/g, '/'), 10, 70);
+    //.text(this.value, 10, 70)
+    this.fileManagerService.generatePdf(doc, fileName).then(m => this.message = m);
   }
 
 }
