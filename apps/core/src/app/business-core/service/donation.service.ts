@@ -31,11 +31,11 @@ export class DonationService {
     return this.http.put<Donation | string>(`${DONATION_ENDPOINT}/${uuid}/state/${state}`, {});
   }
 
-  findNearby(lat: string, lng: string, limit: string): Observable<DonationNearby[]> {
+  findNearby(lat: number, lng: number, limit: number): Observable<DonationNearby[]> {
     console.log(`Finding nerby with ${lat}, ${lng}, ${limit}`);
     return this.http.get<DonationNearby[]>(
       `${DONATION_ENDPOINT}/search/nearby`,
-      { params: { lat: lat, lng: lng, limit: limit } }
+      { params: { lat: lat.toString(), lng: lng.toString(), limit: limit.toString() } }
     );
   }
 }

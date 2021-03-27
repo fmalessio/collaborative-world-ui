@@ -1,3 +1,4 @@
+<ion-item *ngFor="let message of messages">{{ message }}</ion-item>
 <ion-list>
   <ion-item *ngFor="let item of donationsNearby">
     <ion-label>{{ item.category_name }} ({{ item.amount }})</ion-label>

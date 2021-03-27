@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Platform } from '@ionic/angular';
+import { GeolocationMockService } from 'mocks/geolocation-mock.service';
 import { BusinessCoreModule } from '../business-core/business-core.module';
+import { DonationService } from '../business-core/service/donation.service';
 import { EmptyPageComponent } from '../component/empty-page/empty-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { DonationListComponent } from './component/donation-list/donation-list.component';
@@ -20,6 +24,11 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
     CommonModule,
     DonationListRoutingModule,
     SharedModule
+  ],
+  providers: [
+    Platform,
+    { provide: Geolocation, useClass: GeolocationMockService },
+    DonationService
   ]
 })
 export class DonationListModule { }

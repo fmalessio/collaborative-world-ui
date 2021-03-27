@@ -30,6 +30,7 @@ import { CategoryService } from './service/category.service';
     HttpClientModule
   ],
   providers: [
+    // Stepper and Steps
     CategoryService
   ],
   schemas: [
