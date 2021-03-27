@@ -5,7 +5,7 @@ import { DONATION_STATE } from '../../donation/model/donation';
   name: 'donationState'
 })
 export class DonationStatePipe implements PipeTransform {
-  transform(value: string | null): string {
+  transform(value: string | undefined): string {
     if (!value) {
       return '';
     }

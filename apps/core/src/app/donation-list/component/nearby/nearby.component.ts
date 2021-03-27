@@ -14,7 +14,7 @@ import { DonationNearby } from '../../model/donation-nearby';
 export class NearbyComponent implements OnInit {
 
   donationsNearby: DonationNearby[] = [];
-  radioLimit: number;
+  metersLimit: number;
   messages: string[];
 
   constructor(
@@ -22,7 +22,7 @@ export class NearbyComponent implements OnInit {
     private geolocation: Geolocation,
     private donationService: DonationService
   ) {
-    this.radioLimit = 50000;
+    this.metersLimit = 50000;
     this.messages = ["Buscando donaciones cercanas, asegúrese de tener el GPS activo"];
   }
 
@@ -48,7 +48,7 @@ export class NearbyComponent implements OnInit {
   }
 
   private loadNearby(lat: number, lng: number): void {
-    this.donationService.findNearby(lat, lng, this.radioLimit)
+    this.donationService.findNearby(lat, lng, this.metersLimit)
       .pipe(untilDestroyed(this))
       .subscribe(data => this.donationsNearby = data);
   }

@@ -1,6 +1,9 @@
-<ion-item *ngFor="let message of messages">{{ message }}</ion-item>
-<ion-list>
-  <ion-item *ngFor="let item of donationsNearby">
-    <ion-label>{{ item.category_name }} ({{ item.amount }})</ion-label>
+<ion-list *ngIf="donationsNearby.length > 0">
+  <ion-item button *ngFor="let item of donationsNearby" (click)="showDetailsModal(item)">
+    <ion-label class="ion-text-wrap">
+      <h3>{{ item.category_name }} ({{ item.amount }})</h3>
+      <p>{{ item.distance | metersToKM}}</p>
+    </ion-label>
   </ion-item>
 </ion-list>
+<app-empty-page *ngIf="donationsNearby.length === 0"></app-empty-page>
