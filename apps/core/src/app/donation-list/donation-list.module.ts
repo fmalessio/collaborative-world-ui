@@ -9,6 +9,7 @@ import { EmptyPageComponent } from '../component/empty-page/empty-page.component
 import { SharedModule } from '../shared/shared.module';
 import { DonationListComponent } from './component/donation-list/donation-list.component';
 import { MyDonationsComponent } from './component/my-donations/my-donations.component';
+import { NearbyPreviewComponent } from './component/nearby-preview/nearby-preview.component';
 import { NearbyComponent } from './component/nearby/nearby.component';
 import { DonationListRoutingModule } from './donation-list-routing.module';
 
@@ -17,6 +18,7 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
     DonationListComponent,
     MyDonationsComponent,
     NearbyComponent,
+    NearbyPreviewComponent,
     EmptyPageComponent
   ],
   imports: [

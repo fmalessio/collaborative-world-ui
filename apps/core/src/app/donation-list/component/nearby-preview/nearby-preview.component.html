@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="close()" fill="clear" color="primary">
+          Cerrar <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <app-donation-details *ngIf="donation" [donation]="donation"></app-donation-details>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center" *ngIf="donation && donation.follow">
+      <ion-col>
+        <p class="note">
+          Importante: Esta donación es con seguimiento, por lo que deberá imprimir el código QR al retirar la donación
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button (click)="pickUpDonationConfirm()">
+          <ion-icon slot="start" name="car-outline"></ion-icon>
+          Retirar donación
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

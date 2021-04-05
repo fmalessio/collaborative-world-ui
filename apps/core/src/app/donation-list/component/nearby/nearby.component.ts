@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DonationService } from 'src/app/business-core/service/donation.service';
 import { DonationNearby } from '../../model/donation-nearby';
+import { NearbyPreviewComponent } from '../nearby-preview/nearby-preview.component';
 
 @UntilDestroy()
 @Component({
@@ -20,7 +21,8 @@ export class NearbyComponent implements OnInit {
   constructor(
     private platform: Platform,
     private geolocation: Geolocation,
-    private donationService: DonationService
+    private donationService: DonationService,
+    public modalController: ModalController
   ) {
     this.metersLimit = 50000;
     this.messages = ["Buscando donaciones cercanas, asegúrese de tener el GPS activo"];
@@ -40,17 +42,32 @@ export class NearbyComponent implements OnInit {
         resp.coords.longitude
       );
     }).catch((error) => {
-      this.messages.push('Error obteniendo las coodenadas');
+      this.messages = ['Error obteniendo las coordenadas'];
       if (error.message) {
         this.messages.push(`Detalle: ${error.message}`);
       }
     });
   }
 
+  async showDetailsModal(donation: DonationNearby) {
+    const modal = await this.modalController.create({
+      component: NearbyPreviewComponent,
+      componentProps: {
+        donationNearby: donation,
+        swipeToClose: true,
+      }
+    });
+    return await modal.present();
+  }
+
   private loadNearby(lat: number, lng: number): void {
     this.donationService.findNearby(lat, lng, this.metersLimit)
       .pipe(untilDestroyed(this))
-      .subscribe(data => this.donationsNearby = data);
+      .subscribe(data => { 
+        this.donationsNearby = data; 
+        this.donationsNearby.push(...data); 
+        this.donationsNearby.push(...data); 
+        this.donationsNearby.push(...data);});
   }
 
 }

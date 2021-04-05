@@ -18,6 +18,10 @@ export class DonationService {
     private authService: AuthenticationService
   ) { }
 
+  getById(id: string): Observable<Donation> {
+    return this.http.get<Donation>(`${DONATION_ENDPOINT}/${id}`);
+  }
+
   save(donation: Donation): Observable<Donation> {
     return this.http.post<Donation>(DONATION_ENDPOINT, donation);
   }
