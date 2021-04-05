@@ -63,11 +63,7 @@ export class NearbyComponent implements OnInit {
   private loadNearby(lat: number, lng: number): void {
     this.donationService.findNearby(lat, lng, this.metersLimit)
       .pipe(untilDestroyed(this))
-      .subscribe(data => { 
-        this.donationsNearby = data; 
-        this.donationsNearby.push(...data); 
-        this.donationsNearby.push(...data); 
-        this.donationsNearby.push(...data);});
+      .subscribe(data =>  this.donationsNearby = data);
   }
 
 }

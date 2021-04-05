@@ -1,23 +1,25 @@
-<ion-list>
-  <ion-item>
-    <ion-button fill="clear">Notificación 1</ion-button>
-    <ion-button fill="clear" slot="end">
-      <ion-icon name="checkbox-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button fill="clear">Notificación 2</ion-button>
-    <ion-button fill="clear" slot="end">
-      <ion-icon name="checkbox-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button fill="clear">Notificación 3</ion-button>
-    <ion-button fill="clear" slot="end">
-      <ion-icon name="checkbox-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
-  <ion-item *ngIf="isPopover()">
-    <ion-router-link class="center" href="/notification-list">Ver más</ion-router-link>
-  </ion-item>
-</ion-list>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button fill="clear">Notificación 1</ion-button>
+      <ion-button fill="clear" slot="end">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button fill="clear">Notificación 2</ion-button>
+      <ion-button fill="clear" slot="end">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button fill="clear">Notificación 3</ion-button>
+      <ion-button fill="clear" slot="end">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item *ngIf="isPopover()">
+      <ion-router-link class="center" [routerLink]="'/notification-list'">Ver más</ion-router-link>
+    </ion-item>
+  </ion-list>
+</ion-content>
