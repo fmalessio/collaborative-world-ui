@@ -28,7 +28,7 @@ export const menuItems: MenuItem[] = [
         icon: 'map',
         roles: [Role.COLLABORATOR]
     }, {
-        title: 'Pendiente retiro',
+        title: 'Retiros pendientes',
         url: '/donation-list/pending-to-collect',
         icon: 'car',
         roles: [Role.COLLABORATOR]
