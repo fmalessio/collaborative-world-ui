@@ -35,8 +35,22 @@ export class DonationService {
     return this.http.get<Donation[]>(`${DONATION_ENDPOINT}/user/${userUuid}`, { params: parameters });
   }
 
-  changeState(uuid: string, state: DONATION_STATE): Observable<Donation | string> {
-    return this.http.put<Donation | string>(`${DONATION_ENDPOINT}/${uuid}/state/${state}`, {});
+  findByCollaborator(collaboratorUuid: string, states?: DONATION_STATE[]): Observable<Donation[]> {
+    let parameters: HttpParams;
+    if (states) {
+      parameters = new HttpParams();
+      parameters = parameters.append('states', states.join());
+    }
+    return this.http.get<Donation[]>(`${DONATION_ENDPOINT}/collaborator/${collaboratorUuid}`, { params: parameters });
+  }
+
+  changeState(uuid: string, state: DONATION_STATE, collaborator?: string): Observable<Donation | string> {
+    let parameters: HttpParams;
+    if (collaborator) {
+      parameters = new HttpParams();
+      parameters = parameters.append('collaborator', collaborator);
+    }
+    return this.http.post<Donation | string>(`${DONATION_ENDPOINT}/${uuid}/state/${state}`, null, { params: parameters });
   }
 
   findNearby(lat: number, lng: number, metersLimit: number): Observable<DonationNearby[]> {

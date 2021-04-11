@@ -15,6 +15,7 @@ export class DonationStatePipe implements PipeTransform {
 const DONATION_STATE_TRANSLATION: Record<DONATION_STATE, string> = {
   CREATED: 'Pendiente',
   READY_TO_TRAVEL: 'Listo para viajar',
+  PENDING_TO_COLLECT: 'Pendiente de recolectar',
   CANCELLED: 'Cancelado',
   IN_TRAVEL: 'En viaje',
   DONATED_AGAIN: 'Donado nuevamente',

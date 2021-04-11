@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { DonationService } from 'src/app/business-core/service/donation.service';
-import { Donation } from 'src/app/donation/model/donation';
+import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
 import { DonationNearby } from '../../model/donation-nearby';
 
 @Component({
@@ -17,7 +19,9 @@ export class NearbyPreviewComponent implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     private alertController: AlertController,
-    private donationService: DonationService
+    private donationService: DonationService,
+    private authService: AuthenticationService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -46,7 +50,6 @@ export class NearbyPreviewComponent implements OnInit {
           text: 'Confirmar',
           handler: () => {
             this.pickUpDonation();
-            // TODO: redirect to pendings
           }
         }
       ]
@@ -56,8 +59,13 @@ export class NearbyPreviewComponent implements OnInit {
   }
 
   private pickUpDonation() {
-    // Android
-    window.open(`http://www.google.com/maps/place/${this.donation.geolocation.address}`, '_blank').focus();
+    this.close();
+    this.donationService.changeState(
+      this.donation.uuid, DONATION_STATE.PENDING_TO_COLLECT, this.authService.getCurrentUserValue().uuid).subscribe(() => {
+        this.router.navigate(['donation-list/pending-to-collect']);
+        // Android
+        window.open(`http://www.google.com/maps/place/${this.donation.geolocation.address}`, '_blank').focus();
+      });
   }
 
 }
