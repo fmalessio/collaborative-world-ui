@@ -19,7 +19,7 @@ export const menuItems: MenuItem[] = [
         roles: [Role.DONOR]
     }, {
         title: 'Calificar Recolector',
-        url: '/folder/rate-recollector',
+        url: '/folder/rate-collaborator',
         icon: 'star-half',
         roles: [Role.DONOR]
     }, {

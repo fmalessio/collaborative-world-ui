@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { DonationService } from 'src/app/business-core/service/donation.service';
-import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
+import { Donation, DONATION_STATE, GET_LAST_TRANSACTION } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
 @Component({
@@ -17,7 +18,8 @@ export class DonationViewComponent {
   constructor(
     public modalCtrl: ModalController,
     private donationService: DonationService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private authServicer: AuthenticationService
   ) { }
 
   close() {
@@ -26,24 +28,47 @@ export class DonationViewComponent {
     }
   }
 
-  withQR() {
-    return this.donation.follow;
+  withQR(): boolean {
+    return this.donation.follow && this.isTheDonor();
   }
 
-  withMarkAsReadyToTravel() {
-    return this.donation.follow && this.donation.state === DONATION_STATE.CREATED;
+  withMarkAsReadyToTravel(): boolean {
+    return this.donation.follow &&
+      this.donation.state === DONATION_STATE.CREATED &&
+      this.isTheDonor();
   }
 
   markAsReadyToTravel() {
-    return this.donationService.changeState(this.donation.uuid, DONATION_STATE.READY_TO_TRAVEL)
+    this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Listo para viajar!');
+  }
+
+  withCancelCollect(): boolean {
+    return this.donation.state === DONATION_STATE.PENDING_TO_COLLECT && this.isTheCollaborator();
+  }
+
+  cancelCollect() {
+    this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Recolección cancelada');
+  }
+
+  private isTheDonor(): boolean {
+    return this.donation.userId === this.authServicer.getCurrentUserValue().uuid;
+  }
+
+  private isTheCollaborator(): boolean {
+    return GET_LAST_TRANSACTION(this.donation.transactions, this.donation.state).collaborator_id ===
+      this.authServicer.getCurrentUserValue().uuid;
+  }
+
+  private changeDonationState(newState: DONATION_STATE, callbackMsg: string) {
+    return this.donationService.changeState(this.donation.uuid, newState)
       .pipe(untilDestroyed(this))
       .subscribe(
         () => {
-          this.presentToast('Listo para viajar!');
+          this.presentToast(callbackMsg);
           this.modalCtrl.dismiss({
             event: 'STATE_CHANGED',
             uuid: this.donation.uuid,
-            state: DONATION_STATE.READY_TO_TRAVEL
+            state: newState
           });
         },
         (error) => this.presentToast(error)

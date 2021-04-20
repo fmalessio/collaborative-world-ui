@@ -177,9 +177,7 @@ export class DonationStepperComponent implements OnInit, AfterViewInit {
       },
       state: DONATION_STATE.CREATED,
       transactions: [],
-      user: {
-        uuid: this.authService.getCurrentUserValue().uuid
-      }
+      userId: this.authService.getCurrentUserValue().uuid
     };
   }
 

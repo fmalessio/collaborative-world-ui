@@ -11,7 +11,8 @@ export class Donation {
     pathPhotoEvidence?: string;
     startDate?: number;
     endedDate?: number;
-    user: User;
+    user?: User;
+    userId: string;
     transactions: DonationTransaction[];
 }
 
@@ -20,6 +21,7 @@ export class DonationTransaction {
     generationDate: Date;
     state: string;
     collaborator?: User;
+    collaborator_id?: string;
 }
 
 export enum DONATION_STATE {
@@ -32,8 +34,12 @@ export enum DONATION_STATE {
     DONATED_AGAIN = 'DONATED_AGAIN'
 }
 
-export const UPDATED_AT_FOR_STATE = (transactions: DonationTransaction[], state: string) => {
-    return transactions.find(t => t.state === state).generationDate;
+export const UPDATED_AT_FOR_STATE = (transactions: DonationTransaction[], state: string): Date => {
+    return GET_LAST_TRANSACTION(transactions, state).generationDate;
+}
+
+export const GET_LAST_TRANSACTION = (transactions: DonationTransaction[], state: string): DonationTransaction  => {
+    return transactions.find(t => t.state === state);
 }
 
 export interface User {

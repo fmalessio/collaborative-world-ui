@@ -31,6 +31,7 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
   ],
   providers: [
     Platform,
+    //Geolocation,
     { provide: Geolocation, useClass: GeolocationMockService },
     DonationService
   ]
