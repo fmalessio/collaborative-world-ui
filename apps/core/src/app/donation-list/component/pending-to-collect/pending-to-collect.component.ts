@@ -33,9 +33,7 @@ export class PendingToCollectComponent implements OnInit {
   }
 
   donationStateChange(data: { uuid: string, state: DONATION_STATE }) {
-    let donation = this.donations.find(don => don.uuid === data.uuid);
-    donation.transactions.push({ uuid: '', state: data.state, generationDate: new Date() });
-    donation.state = data.state;
+    this.donations = this.donations.filter(don => don.uuid !== data.uuid);
   }
 
 }

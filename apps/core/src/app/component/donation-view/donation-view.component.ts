@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { DonationService } from 'src/app/business-core/service/donation.service';
@@ -19,7 +19,8 @@ export class DonationViewComponent {
     public modalCtrl: ModalController,
     private donationService: DonationService,
     private toastController: ToastController,
-    private authServicer: AuthenticationService
+    private authServicer: AuthenticationService,
+    private alertController: AlertController
   ) { }
 
   close() {
@@ -46,8 +47,44 @@ export class DonationViewComponent {
     return this.donation.state === DONATION_STATE.PENDING_TO_COLLECT && this.isTheCollaborator();
   }
 
+  markAsInTravel() {
+    var callback = (): void => {
+      this.changeDonationState(DONATION_STATE.IN_TRAVEL, 'Donación recolectada');
+    };
+    this.confirmToRun(callback, '¿Seguro que desea marcarla como <strong>recolectada</strong>?');
+  }
+
   cancelCollect() {
-    this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Recolección cancelada');
+    var callback = (): void => {
+      this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Recolección cancelada');
+    };
+    this.confirmToRun(callback, '¿Seguro que desea <strong>cancelar este retiro</strong>?');
+  }
+
+  viewInMap() {
+    // Android
+    window.open(`http://www.google.com/maps/place/${this.donation.geolocation.address}`, '_blank').focus();
+  }
+
+  private async confirmToRun(func: Function, msj: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      message: msj,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            func()
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   private isTheDonor(): boolean {
@@ -59,8 +96,8 @@ export class DonationViewComponent {
       this.authServicer.getCurrentUserValue().uuid;
   }
 
-  private changeDonationState(newState: DONATION_STATE, callbackMsg: string) {
-    return this.donationService.changeState(this.donation.uuid, newState)
+  private changeDonationState(newState: DONATION_STATE, callbackMsg: string, collaborator?: string) {
+    return this.donationService.changeState(this.donation.uuid, newState, collaborator)
       .pipe(untilDestroyed(this))
       .subscribe(
         () => {
