@@ -15,6 +15,7 @@ import { NotificationsComponent } from './component/notifications/notifications.
 import { SelectRolComponent } from './component/select-rol/select-rol.component';
 import { ProgressBarInterceptor } from './interceptor/progress-bar.interceptor';
 import { DonationStatePipe } from './pipe/donation-state.pipe';
+import { MetersToKMPipe } from './pipe/meters-to-km.pipe';
 import { ProgressBarService } from './service/progress-bar.service';
 import { StorageService } from './service/storage.service';
 
@@ -28,7 +29,8 @@ import { StorageService } from './service/storage.service';
     DonationDetailsComponent,
     DonationViewComponent,
     // Providers
-    DonationStatePipe
+    DonationStatePipe,
+    MetersToKMPipe
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { StorageService } from './service/storage.service';
     DonationDetailsComponent,
     DonationViewComponent,
     // Providers
-    DonationStatePipe
+    DonationStatePipe,
+    MetersToKMPipe
   ],
   providers: [
     DonationStatePipe,

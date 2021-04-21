@@ -1,34 +1,51 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ProgressBarService } from '../service/progress-bar.service';
 
 @Injectable()
 export class ProgressBarInterceptor implements HttpInterceptor {
+
+  private requests: HttpRequest<any>[] = [];
 
   constructor(
     private progressBarService: ProgressBarService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.progressBarService.setShow(true);
-    return next.handle(req).pipe(map((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        this.endProgressBar();
-      }
-      return event;
-    }), catchError((error: HttpErrorResponse) => {
-      this.endProgressBar();
-      return throwError(error);
-    }));
+    this.requests.push(req);
+    this.progressBarService.showProgressBar.next(true);
+    return new Observable(observer => {
+      const subscription = next.handle(req)
+        .subscribe(event => {
+          if (event instanceof HttpResponse) {
+            this.removeRequest(req);
+            observer.next(event);
+          }
+        }, err => {
+          alert('error' + err);
+          this.removeRequest(req);
+          observer.error(err);
+        }, () => {
+          this.removeRequest(req);
+          observer.complete();
+        });
+      return () => {
+        this.removeRequest(req);
+        subscription.unsubscribe();
+      };
+    });
   }
 
-  async endProgressBar() {
-    setTimeout(
-      () => this.progressBarService.setShow(false),
-      1000
-    );
+  /**
+   * remove request from queue when cancelled
+   */
+  private removeRequest(req: HttpRequest<any>) {
+    const i = this.requests.indexOf(req);
+    if (i >= 0) {
+      this.requests.splice(i, 1);
+    }
+    this.progressBarService.showProgressBar.next(this.requests.length > 0);
   }
 
 }

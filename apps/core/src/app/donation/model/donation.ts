@@ -19,11 +19,13 @@ export class DonationTransaction {
     uuid: string;
     generationDate: Date;
     state: string;
+    collaborator?: User;
 }
 
 export enum DONATION_STATE {
     CREATED = 'CREATED',
     READY_TO_TRAVEL = 'READY_TO_TRAVEL',
+    PENDING_TO_COLLECT = 'PENDING_TO_COLLECT',
     CANCELLED = 'CANCELLED',
     IN_TRAVEL = 'IN_TRAVEL',
     FINALIZED = 'FINALIZED',

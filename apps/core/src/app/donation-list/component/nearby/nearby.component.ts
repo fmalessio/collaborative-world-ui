@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ModalController, Platform } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DonationService } from 'src/app/business-core/service/donation.service';
 import { DonationNearby } from '../../model/donation-nearby';
+import { NearbyPreviewComponent } from '../nearby-preview/nearby-preview.component';
 
 @UntilDestroy()
 @Component({
@@ -12,23 +15,55 @@ import { DonationNearby } from '../../model/donation-nearby';
 export class NearbyComponent implements OnInit {
 
   donationsNearby: DonationNearby[] = [];
-  private paramsMock: any = {
-    lat: "-34.6410901",
-    lng: "-58.6695093",
-    limit: "50000"
-  }
+  metersLimit: number;
+  messages: string[];
 
-  constructor(private donationService: DonationService) { }
+  constructor(
+    private platform: Platform,
+    private geolocation: Geolocation,
+    private donationService: DonationService,
+    public modalController: ModalController
+  ) {
+    this.metersLimit = 50000;
+    this.messages = ["Buscando donaciones cercanas, asegúrese de tener el GPS activo"];
+  }
 
   ngOnInit() {
-    this.loadData();
+    this.platform.ready().then(() => {
+      this.searchByPosition();
+    });
   }
 
-  private loadData(): void {
-    this.donationService.findNearby(
-      this.paramsMock.lat, this.paramsMock.lng, this.paramsMock.limit)
+  searchByPosition() {
+    this.geolocation.getCurrentPosition({ timeout: 8000 }).then((resp) => {
+      this.messages = [];
+      this.loadNearby(
+        resp.coords.latitude,
+        resp.coords.longitude
+      );
+    }).catch((error) => {
+      this.messages = ['Error obteniendo las coordenadas'];
+      if (error.message) {
+        this.messages.push(`Detalle: ${error.message}`);
+      }
+    });
+  }
+
+  async showDetailsModal(donation: DonationNearby) {
+    const modal = await this.modalController.create({
+      component: NearbyPreviewComponent,
+      componentProps: {
+        donationNearby: donation,
+        swipeToClose: true,
+      }
+    });
+    return await modal.present();
+  }
+
+  private loadNearby(lat: number, lng: number): void {
+    this.donationService.findNearby(lat, lng, this.metersLimit)
       .pipe(untilDestroyed(this))
-      .subscribe(data => this.donationsNearby = data);
+      .subscribe(data =>  this.donationsNearby = data);
   }
 
 }

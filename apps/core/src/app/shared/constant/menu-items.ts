@@ -28,6 +28,11 @@ export const menuItems: MenuItem[] = [
         icon: 'map',
         roles: [Role.COLLABORATOR]
     }, {
+        title: 'Retiros pendientes',
+        url: '/donation-list/pending-to-collect',
+        icon: 'car',
+        roles: [Role.COLLABORATOR]
+    }, {
         title: 'Notificaciones',
         url: '/notification-list',
         icon: 'chatbubble-ellipses',
