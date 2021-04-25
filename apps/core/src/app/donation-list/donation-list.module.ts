@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform } from '@ionic/angular';
 import { GeolocationMockService } from 'mocks/geolocation-mock.service';
@@ -33,6 +34,7 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
     Platform,
     //Geolocation,
     { provide: Geolocation, useClass: GeolocationMockService },
+    BarcodeScanner,
     DonationService
   ]
 })

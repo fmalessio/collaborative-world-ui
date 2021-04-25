@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthenticationService } from 'src/app/auth/service/authentication.service';
@@ -19,8 +20,9 @@ export class DonationViewComponent {
     public modalCtrl: ModalController,
     private donationService: DonationService,
     private toastController: ToastController,
-    private authServicer: AuthenticationService,
-    private alertController: AlertController
+    private authService: AuthenticationService,
+    private alertController: AlertController,
+    private barcodeScanner: BarcodeScanner
   ) { }
 
   close() {
@@ -48,15 +50,38 @@ export class DonationViewComponent {
   }
 
   markAsInTravel() {
+    if (!this.donation.follow) {
+      this.markAsInTravelValidated();
+      return;
+    }
+    this.barcodeScanner.scan().then(barcodeData => {
+      if (barcodeData.text === this.donation.uuid) {
+        this.markAsInTravelValidated();
+      } else {
+        throw new Error("El código QR no coincide con la donación.");
+      }
+    }).catch(err => {
+      console.error(err);
+      this.presentToast(err);
+    });
+  }
+
+  private markAsInTravelValidated() {
     var callback = (): void => {
-      this.changeDonationState(DONATION_STATE.IN_TRAVEL, 'Donación recolectada');
+      this.changeDonationState(
+        DONATION_STATE.IN_TRAVEL, 
+        'Donación recolectada', 
+        this.authService.getCurrentUserValue().uuid);
     };
     this.confirmToRun(callback, '¿Seguro que desea marcarla como <strong>recolectada</strong>?');
   }
 
   cancelCollect() {
     var callback = (): void => {
-      this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Recolección cancelada');
+      this.changeDonationState(
+        DONATION_STATE.READY_TO_TRAVEL,
+        'Recolección cancelada',
+        this.authService.getCurrentUserValue().uuid);
     };
     this.confirmToRun(callback, '¿Seguro que desea <strong>cancelar este retiro</strong>?');
   }
@@ -88,12 +113,12 @@ export class DonationViewComponent {
   }
 
   private isTheDonor(): boolean {
-    return this.donation.userId === this.authServicer.getCurrentUserValue().uuid;
+    return this.donation.userId === this.authService.getCurrentUserValue().uuid;
   }
 
   private isTheCollaborator(): boolean {
     return GET_LAST_TRANSACTION(this.donation.transactions, this.donation.state).collaborator_id ===
-      this.authServicer.getCurrentUserValue().uuid;
+      this.authService.getCurrentUserValue().uuid;
   }
 
   private changeDonationState(newState: DONATION_STATE, callbackMsg: string, collaborator?: string) {
