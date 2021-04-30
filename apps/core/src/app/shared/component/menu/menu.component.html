@@ -1,17 +1,20 @@
 <ion-menu contentId="main-content" type="overlay">
   <ion-content>
-    <ion-list id="inbox-list">
-      <ion-list-header>
+    <div>
+      <h1>
+        <!-- TODO: Move as backgroud -->
         <img width="32" style="margin-right: 15px;" src="assets/icon/favicon.png" alt="favicon" />
         Mundo Colaborativo
-      </ion-list-header>
+      </h1>
+    </div>
 
-      <ion-item style="padding-left: 10px;">
-        <ion-note slot="end">Alias</ion-note>
-      </ion-item>
+    <div class="user-details">
+      <ion-label>{{ userFullName }}</ion-label>
+      <ion-label>{{ userAlias }}</ion-label>
+    </div>
+    <app-select-rol (onRolChange)="updateByRol($event)"></app-select-rol>
 
-      <app-select-rol (onRolChange)="updateByRol($event)"></app-select-rol>
-
+    <ion-list id="inbox-list">
       <ion-menu-toggle auto-hide="false" *ngFor="let p of items">
         <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
