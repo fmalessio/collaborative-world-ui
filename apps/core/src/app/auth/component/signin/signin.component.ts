@@ -31,7 +31,7 @@ export class SigninComponent implements OnInit {
       return;
     }
     const data = this.signinFormGroup.getRawValue();
-    const userLogin: LoginUserDTO = { username: data.email, password: data.password };
+    const userLogin: LoginUserDTO = { username: data.email.trim(), password: data.password.trim() };
     this.authenticationService.login(userLogin).then(
       () => { },
       (error: string) => { this.displayMessage = DisplayMessageBuilder.buildError(error) });
