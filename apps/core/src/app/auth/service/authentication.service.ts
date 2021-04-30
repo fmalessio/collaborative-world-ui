@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
@@ -30,18 +30,22 @@ export class AuthenticationService {
     });
   }
 
-  login(loginUser: LoginUserDTO) {
-    this.http.post<LoggedUser>(AUTH_ENDPOINT + '/login', loginUser)
-      .pipe(untilDestroyed(this)).subscribe(
-        (loggedUser: LoggedUser) => {
-          this.storageService.set(LOGGED_USER_STORAGE, loggedUser).then(() => {
-            this.authState.next(true);
-            this.currentUser.next(loggedUser);
-            this.goLoggedin();
+  login(loginUser: LoginUserDTO): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.http.post<LoggedUser>(AUTH_ENDPOINT + '/login', loginUser)
+        .pipe(untilDestroyed(this)).subscribe(
+          (loggedUser: LoggedUser) => {
+            this.storageService.set(LOGGED_USER_STORAGE, loggedUser).then(() => {
+              this.authState.next(true);
+              this.currentUser.next(loggedUser);
+              resolve(true);
+              this.goLoggedin();
+            });
+          },
+          (errorResponse: HttpErrorResponse) => {
+            reject(errorResponse.error?.message);
           });
-        },
-        (error) => console.error(JSON.stringify(error))
-      );
+    });
   }
 
   logout() {

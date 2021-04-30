@@ -18,6 +18,7 @@ import { DonationStatePipe } from './pipe/donation-state.pipe';
 import { MetersToKMPipe } from './pipe/meters-to-km.pipe';
 import { ProgressBarService } from './service/progress-bar.service';
 import { StorageService } from './service/storage.service';
+import { IonDisplayMessagesModule } from '@bluehorse/ion-display-messages';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { StorageService } from './service/storage.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonDisplayMessagesModule
   ],
   exports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { StorageService } from './service/storage.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    IonDisplayMessagesModule,
     // Components
     MenuComponent,
     HeaderComponent,

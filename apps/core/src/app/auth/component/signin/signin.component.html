@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content>
+  <lib-ion-display-messages [isVisible]="displayMessage.visible" 
+    [dismissible]="true" [icon]="true" [type]="displayMessage.type">
+    {{ displayMessage.message }}
+  </lib-ion-display-messages>
+
   <form [formGroup]="signinFormGroup">
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
@@ -21,7 +26,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="save()" color="danger" expand="block">Ingresar</ion-button>
+        <ion-button (click)="login()" color="danger" expand="block">Ingresar</ion-button>
         <a [routerLink]="['/forgot-password']" class="center small-text">Recuperar credenciales...</a>
       </ion-col>
     </ion-row>

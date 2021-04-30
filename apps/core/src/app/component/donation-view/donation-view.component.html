@@ -12,6 +12,7 @@
     </ion-col>
   </ion-row>
   <ion-row>
+    <!-- TODO: refactor with multiples components -->
     <ion-col class="ion-text-center">
       <ion-button *ngIf="withQR()" [routerLink]="['/xcode', donation.uuid]" (click)="close()">
         <ion-icon slot="start" name="qr-code-outline"></ion-icon>
@@ -19,7 +20,19 @@
       </ion-button>
       <ion-button *ngIf="withMarkAsReadyToTravel()" (click)="markAsReadyToTravel()">
         <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
-        Marcar listo para entrega
+        Marcar listo para retiro
+      </ion-button>
+      <ion-button *ngIf="withCancelCollect()" (click)="viewInMap()">
+        <ion-icon name="map-outline"></ion-icon>
+        Ver en mapa
+      </ion-button>
+      <ion-button *ngIf="withCancelCollect()" (click)="markAsInTravel()">
+        <ion-icon name="hand-left-outline"></ion-icon>
+        Marcar como recolectado
+      </ion-button>
+      <ion-button color="danger" *ngIf="withCancelCollect()" (click)="cancelCollect()">
+        <ion-icon name="close-outline"></ion-icon>
+        Cancelar recolección
       </ion-button>
     </ion-col>
   </ion-row>

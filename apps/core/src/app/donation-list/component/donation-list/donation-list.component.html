@@ -1,3 +1,7 @@
+<lib-ion-display-messages [isVisible]="displayMessage.visible" [dismissible]="true" [icon]="true"
+  [type]="displayMessage.type">
+  {{ displayMessage.message }}
+</lib-ion-display-messages>
 <ion-list *ngIf="donations.length > 0">
   <ion-item button *ngFor="let item of donations" (click)="showDetailsModal(item)">
     <ion-label class="ion-text-wrap">
