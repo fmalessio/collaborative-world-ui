@@ -1,4 +1,5 @@
 <ion-content>
-  <app-donation-list [donations]="donations" (onDonationStateChange)="donationStateChange($event)">
+  <app-donation-list [donations]="donations" [messagePage]="messagePage"
+    (onDonationStateChange)="donationStateChange($event)">
   </app-donation-list>
 </ion-content>

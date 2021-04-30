@@ -8,5 +8,5 @@
       </ion-label>
     </ion-item>
   </ion-list>
-  <app-empty-page *ngIf="donationsNearby.length === 0"></app-empty-page>
+  <app-message-page [visible]="messagePage && messagePage !== ''" [message]="messagePage"></app-message-page>
 </ion-content>

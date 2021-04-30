@@ -14,13 +14,16 @@ import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
 export class PendingToCollectComponent implements OnInit {
 
   donations: Donation[] = [];
+  messagePage: string;
   private states: DONATION_STATE[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
     private donationService: DonationService
-  ) { }
+  ) {
+    this.messagePage = 'Buscando donaciones...';
+  }
 
   ngOnInit() {
     this.activatedRoute.data.pipe(untilDestroyed(this))
@@ -28,7 +31,11 @@ export class PendingToCollectComponent implements OnInit {
         this.states = routeData.states;
         this.donationService.findByCollaborator(this.authService.getCurrentUserValue().uuid, this.states)
           .pipe(untilDestroyed(this))
-          .subscribe(data => this.donations = data);
+          .subscribe(data => {
+            this.donations = data;
+            this.donations.length === 0 ?
+              this.messagePage = 'Nada por aquí!' : this.messagePage = '';
+          });
       });
   }
 

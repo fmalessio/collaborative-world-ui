@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController, Platform } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DonationService } from 'src/app/business-core/service/donation.service';
+import { DisplayMessage, DisplayMessageBuilder } from 'src/app/shared/model/display-message';
 import { DonationNearby } from '../../model/donation-nearby';
 import { NearbyPreviewComponent } from '../nearby-preview/nearby-preview.component';
 
@@ -16,7 +17,8 @@ export class NearbyComponent implements OnInit {
 
   donationsNearby: DonationNearby[] = [];
   metersLimit: number;
-  messages: string[];
+  displayMessage: DisplayMessage;
+  messagePage: string;
 
   constructor(
     private platform: Platform,
@@ -25,7 +27,8 @@ export class NearbyComponent implements OnInit {
     public modalController: ModalController
   ) {
     this.metersLimit = 50000;
-    this.messages = ["Buscando donaciones cercanas, asegúrese de tener el GPS activo"];
+    this.messagePage = 'Buscando donaciones cercanas, asegúrese de tener el GPS activo...';
+    this.displayMessage = DisplayMessageBuilder.buildEmpty();
   }
 
   ngOnInit() {
@@ -36,16 +39,16 @@ export class NearbyComponent implements OnInit {
 
   searchByPosition() {
     this.geolocation.getCurrentPosition({ timeout: 8000 }).then((resp) => {
-      this.messages = [];
       this.loadNearby(
         resp.coords.latitude,
         resp.coords.longitude
       );
     }).catch((error) => {
-      this.messages = ['Error obteniendo las coordenadas'];
+      let msg = 'Error obteniendo las coordenadas';
       if (error.message) {
-        this.messages.push(`Detalle: ${error.message}`);
+        msg = msg.concat(`. Detalle: ${error.message}`);
       }
+      this.displayMessage = DisplayMessageBuilder.buildError(msg);
     });
   }
 
@@ -63,7 +66,12 @@ export class NearbyComponent implements OnInit {
   private loadNearby(lat: number, lng: number): void {
     this.donationService.findNearby(lat, lng, this.metersLimit)
       .pipe(untilDestroyed(this))
-      .subscribe(data =>  this.donationsNearby = data);
+      .subscribe((data) => {
+        data.length === 0 ?
+          this.messagePage = 'No se han encontrado donaciones cercanas por el momento' :
+          this.messagePage = '';
+        this.donationsNearby = data;
+      });
   }
 
 }
