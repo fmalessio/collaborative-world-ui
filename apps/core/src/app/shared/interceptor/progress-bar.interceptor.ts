@@ -23,7 +23,6 @@ export class ProgressBarInterceptor implements HttpInterceptor {
             observer.next(event);
           }
         }, err => {
-          alert('error' + err);
           this.removeRequest(req);
           observer.error(err);
         }, () => {

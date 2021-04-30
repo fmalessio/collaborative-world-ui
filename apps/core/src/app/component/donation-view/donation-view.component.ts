@@ -42,7 +42,12 @@ export class DonationViewComponent {
   }
 
   markAsReadyToTravel() {
-    this.changeDonationState(DONATION_STATE.READY_TO_TRAVEL, 'Listo para viajar!');
+    var callback = (): void => {
+      this.changeDonationState(
+        DONATION_STATE.READY_TO_TRAVEL,
+        'Listo para viajar!');
+    };
+    this.confirmToRun(callback, '¿Seguro que desea marcarla como <strong>listo para viajar</strong>?');
   }
 
   withCancelCollect(): boolean {
@@ -69,8 +74,8 @@ export class DonationViewComponent {
   private markAsInTravelValidated() {
     var callback = (): void => {
       this.changeDonationState(
-        DONATION_STATE.IN_TRAVEL, 
-        'Donación recolectada', 
+        DONATION_STATE.IN_TRAVEL,
+        'Donación recolectada',
         this.authService.getCurrentUserValue().uuid);
     };
     this.confirmToRun(callback, '¿Seguro que desea marcarla como <strong>recolectada</strong>?');
