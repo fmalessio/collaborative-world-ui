@@ -63,7 +63,11 @@ export class DonationViewComponent {
       if (barcodeData.text === this.donation.uuid) {
         this.markAsInTravelValidated();
       } else {
-        throw new Error("El código QR no coincide con la donación.");
+        this.modalCtrl.dismiss({
+          event: 'ERROR',
+          uuid: this.donation.uuid,
+          message: "El código QR no coincide con la donación"
+        })
       }
     }).catch(err => {
       console.error(err);

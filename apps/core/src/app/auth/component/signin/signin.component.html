@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <lib-ion-display-messages [isVisible]="displayMessage.message !== ''" 
+  <lib-ion-display-messages [isVisible]="displayMessage.visible" 
     [dismissible]="true" [icon]="true" [type]="displayMessage.type">
     {{ displayMessage.message }}
   </lib-ion-display-messages>
