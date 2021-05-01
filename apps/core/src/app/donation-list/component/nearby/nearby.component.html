@@ -3,7 +3,7 @@
     <ion-item button *ngFor="let item of donationsNearby" (click)="showDetailsModal(item)">
       <ion-label class="ion-text-wrap">
         <h3>{{ item.category_name }} ({{ item.amount }})</h3>
-        <p>{{ item.distance | metersToKM}}</p>
+        <p>{{ item.distance | metersToKM}} aproximadamente</p>
         <p style="white-space: nowrap;">{{ item.address }}</p>
       </ion-label>
     </ion-item>
