@@ -3,10 +3,10 @@
     <ion-item button *ngFor="let item of donationsNearby" (click)="showDetailsModal(item)">
       <ion-label class="ion-text-wrap">
         <h3>{{ item.category_name }} ({{ item.amount }})</h3>
-        <p>{{ item.distance | metersToKM}}</p>
+        <p>{{ item.distance | metersToKM}} aproximadamente</p>
         <p style="white-space: nowrap;">{{ item.address }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
-  <app-empty-page *ngIf="donationsNearby.length === 0"></app-empty-page>
+  <app-message-page [visible]="messagePage && messagePage !== ''" [message]="messagePage"></app-message-page>
 </ion-content>

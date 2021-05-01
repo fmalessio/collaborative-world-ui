@@ -7,7 +7,7 @@ import { BarcodeScannerMockService } from 'mocks/barcode-scanner-mock.service';
 import { GeolocationMockService } from 'mocks/geolocation-mock.service';
 import { BusinessCoreModule } from '../business-core/business-core.module';
 import { DonationService } from '../business-core/service/donation.service';
-import { EmptyPageComponent } from '../component/empty-page/empty-page.component';
+import { MessagePageComponent } from '../component/message-page/message-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { DonationListComponent } from './component/donation-list/donation-list.component';
 import { MyDonationsComponent } from './component/my-donations/my-donations.component';
@@ -23,7 +23,7 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
     NearbyComponent,
     NearbyPreviewComponent,
     PendingToCollectComponent,
-    EmptyPageComponent
+    MessagePageComponent
   ],
   imports: [
     BusinessCoreModule,

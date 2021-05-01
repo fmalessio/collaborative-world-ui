@@ -15,13 +15,15 @@ export class DonationListComponent implements OnInit {
 
   displayMessage: DisplayMessage;
   @Input() donations: Donation[] = [];
+  @Input() messagePage: string;
   @Output() onDonationStateChange = new EventEmitter<{ uuid: string, state: DONATION_STATE }>();
 
   constructor(public modalController: ModalController) {
     this.displayMessage = DisplayMessageBuilder.buildEmpty();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   async showDetailsModal(donation: Donation) {
     this.displayMessage = DisplayMessageBuilder.buildEmpty();

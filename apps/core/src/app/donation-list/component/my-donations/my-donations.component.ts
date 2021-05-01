@@ -13,6 +13,7 @@ import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
 })
 export class MyDonationsComponent implements OnInit {
 
+  messagePage: string;
   donations: Donation[] = [];
   private states: DONATION_STATE[];
 
@@ -20,7 +21,9 @@ export class MyDonationsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
     private donationService: DonationService
-  ) { }
+  ) {
+    this.messagePage = 'Buscando donaciones...';
+  }
 
   ngOnInit() {
     this.activatedRoute.data.pipe(untilDestroyed(this))
@@ -28,7 +31,12 @@ export class MyDonationsComponent implements OnInit {
         this.states = routeData.states;
         this.donationService.findByUser(this.authService.getCurrentUserValue().uuid, this.states)
           .pipe(untilDestroyed(this))
-          .subscribe(data => this.donations = data);
+          .subscribe((data) => {
+            data.length === 0 ?
+              this.messagePage = 'No se han encontrado donaciones.' :
+              this.messagePage = '';
+            this.donations = data
+          });
       });
   }
 
