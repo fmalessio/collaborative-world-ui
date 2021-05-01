@@ -7,11 +7,11 @@ import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-pending-to-collect',
-  templateUrl: './pending-to-collect.component.html',
-  styleUrls: ['./pending-to-collect.component.scss'],
+  selector: 'app-search-by-collaborator',
+  templateUrl: './search-by-collaborator.component.html',
+  styleUrls: ['./search-by-collaborator.component.scss'],
 })
-export class PendingToCollectComponent implements OnInit {
+export class SearchByCollaboratorComponent implements OnInit {
 
   donations: Donation[] = [];
   messagePage: string;
@@ -42,5 +42,4 @@ export class PendingToCollectComponent implements OnInit {
   donationStateChange(data: { uuid: string, state: DONATION_STATE }) {
     this.donations = this.donations.filter(don => don.uuid !== data.uuid);
   }
-
 }

@@ -29,8 +29,18 @@ export const menuItems: MenuItem[] = [
         roles: [Role.COLLABORATOR]
     }, {
         title: 'Retiros pendientes',
-        url: '/donation-list/pending-to-collect',
+        url: '/donation-list/collaborator/pending-to-collect',
         icon: 'car',
+        roles: [Role.COLLABORATOR]
+    }, {
+        title: 'Recolectadas',
+        url: '/donation-list/collaborator/collected',
+        icon: 'cube',
+        roles: [Role.COLLABORATOR]
+    }, {
+        title: 'Finalizadas',
+        url: '/donation-list/collaborator/finalized',
+        icon: 'golf',
         roles: [Role.COLLABORATOR]
     }, {
         title: 'Notificaciones',
