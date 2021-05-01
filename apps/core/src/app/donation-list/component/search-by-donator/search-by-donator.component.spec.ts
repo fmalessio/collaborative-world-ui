@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PendingToCollectComponent } from './pending-to-collect.component';
+import { SearchByDonatorComponent } from './search-by-donator.component';
 
-describe('PendingToCollectComponent', () => {
-  let component: PendingToCollectComponent;
-  let fixture: ComponentFixture<PendingToCollectComponent>;
+describe('SearchByDonatorComponent', () => {
+  let component: SearchByDonatorComponent;
+  let fixture: ComponentFixture<SearchByDonatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PendingToCollectComponent ],
+      declarations: [ SearchByDonatorComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PendingToCollectComponent);
+    fixture = TestBed.createComponent(SearchByDonatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

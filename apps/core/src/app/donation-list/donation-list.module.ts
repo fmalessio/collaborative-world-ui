@@ -13,7 +13,7 @@ import { DonationListComponent } from './component/donation-list/donation-list.c
 import { MyDonationsComponent } from './component/my-donations/my-donations.component';
 import { NearbyPreviewComponent } from './component/nearby-preview/nearby-preview.component';
 import { NearbyComponent } from './component/nearby/nearby.component';
-import { PendingToCollectComponent } from './component/pending-to-collect/pending-to-collect.component';
+import { SearchByDonatorComponent } from './component/search-by-donator/search-by-donator.component';
 import { DonationListRoutingModule } from './donation-list-routing.module';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
     MyDonationsComponent,
     NearbyComponent,
     NearbyPreviewComponent,
-    PendingToCollectComponent,
+    SearchByDonatorComponent,
     MessagePageComponent
   ],
   imports: [
