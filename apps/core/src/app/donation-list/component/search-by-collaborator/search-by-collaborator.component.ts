@@ -7,11 +7,11 @@ import { Donation, DONATION_STATE } from 'src/app/donation/model/donation';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-search-by-donator',
-  templateUrl: './search-by-donator.component.html',
-  styleUrls: ['./search-by-donator.component.scss'],
+  selector: 'app-search-by-collaborator',
+  templateUrl: './search-by-collaborator.component.html',
+  styleUrls: ['./search-by-collaborator.component.scss'],
 })
-export class SearchByDonatorComponent implements OnInit {
+export class SearchByCollaboratorComponent implements OnInit {
 
   donations: Donation[] = [];
   messagePage: string;
