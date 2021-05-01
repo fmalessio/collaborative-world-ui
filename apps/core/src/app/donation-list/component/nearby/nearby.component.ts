@@ -26,7 +26,7 @@ export class NearbyComponent implements OnInit {
     private donationService: DonationService,
     public modalController: ModalController
   ) {
-    this.metersLimit = 50000;
+    this.metersLimit = 60000;
     this.messagePage = 'Buscando donaciones cercanas, asegúrese de tener el GPS activo...';
     this.displayMessage = DisplayMessageBuilder.buildEmpty();
   }
@@ -68,7 +68,7 @@ export class NearbyComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((data) => {
         data.length === 0 ?
-          this.messagePage = 'No se han encontrado donaciones cercanas por el momento' :
+          this.messagePage = 'No se han encontrado donaciones cercanas en un radio de 60 KM.' :
           this.messagePage = '';
         this.donationsNearby = data;
       });
