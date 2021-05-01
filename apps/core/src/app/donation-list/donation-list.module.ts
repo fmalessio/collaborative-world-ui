@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform } from '@ionic/angular';
-import { BarcodeScannerMockService } from 'mocks/barcode-scanner-mock.service';
-import { GeolocationMockService } from 'mocks/geolocation-mock.service';
 import { BusinessCoreModule } from '../business-core/business-core.module';
 import { DonationService } from '../business-core/service/donation.service';
 import { MessagePageComponent } from '../component/message-page/message-page.component';
@@ -33,10 +31,10 @@ import { DonationListRoutingModule } from './donation-list-routing.module';
   ],
   providers: [
     Platform,
-    //Geolocation,
-    { provide: Geolocation, useClass: GeolocationMockService },
-    //BarcodeScanner,
-    { provide: BarcodeScanner, useClass: BarcodeScannerMockService },
+    Geolocation,
+    //{ provide: Geolocation, useClass: GeolocationMockService },
+    BarcodeScanner,
+    //{ provide: BarcodeScanner, useClass: BarcodeScannerMockService },
     DonationService
   ]
 })
