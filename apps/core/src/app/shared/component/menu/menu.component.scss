@@ -11,8 +11,15 @@ ion-menu.md ion-content {
   --padding-bottom: 20px;
 }
 
-h1 {
-  font-size: 1.2rem;
+#title-wrapper {
+  h1 {
+    padding-left: 42px;
+    font-size: 1.2rem;
+    background-image: url(/assets/icon/favicon.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+  }
 }
 
 .user-details {
@@ -30,11 +37,6 @@ h1 {
 ion-menu.md ion-list,
 h1 {
   padding: 5px 0;
-}
-
-ion-menu.md h1,
-ion-menu.md ion-note {
-  padding-left: 10px;
 }
 
 ion-menu.md ion-list#inbox-list {
