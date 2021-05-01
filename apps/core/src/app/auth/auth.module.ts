@@ -17,9 +17,6 @@ import { AuthenticationService } from './service/authentication.service';
     AuthRoutingModule,
     HttpClientModule,
     SharedModule
-  ],
-  exports: [
-    AuthenticationService
   ]
 })
 export class AuthModule { }
