@@ -55,24 +55,10 @@ export class DonationViewComponent {
   }
 
   markAsInTravel() {
-    if (!this.donation.follow) {
+    const callback = (): void => {
       this.markAsInTravelValidated();
-      return;
-    }
-    this.barcodeScanner.scan().then(barcodeData => {
-      if (barcodeData.text === this.donation.uuid) {
-        this.markAsInTravelValidated();
-      } else {
-        this.modalCtrl.dismiss({
-          event: 'ERROR',
-          uuid: this.donation.uuid,
-          message: "El código QR no coincide con la donación"
-        })
-      }
-    }).catch(err => {
-      console.error(err);
-      this.presentToast(err);
-    });
+    };
+    this.loadDonationQRAndCall(callback);
   }
 
   private markAsInTravelValidated() {
@@ -93,6 +79,27 @@ export class DonationViewComponent {
         this.authService.getCurrentUserValue().uuid);
     };
     this.confirmToRun(callback, '¿Seguro que desea <strong>cancelar este retiro</strong>?');
+  }
+
+  withMarkAsFinalized() {
+    return this.donation.state === DONATION_STATE.IN_TRAVEL && this.isTheCollaborator();
+  }
+
+  markAsFinalized() {
+    const callback = (): void => {
+      this.markAsFinalizedValidated();
+    };
+    this.loadDonationQRAndCall(callback);
+  }
+
+  private markAsFinalizedValidated() {
+    var callback = (): void => {
+      this.changeDonationState(
+        DONATION_STATE.FINALIZED,
+        'Donación entregada/finalizada',
+        this.authService.getCurrentUserValue().uuid);
+    };
+    this.confirmToRun(callback, '¿Seguro que desea marcarla como <strong>entregada</strong>?');
   }
 
   viewInMap() {
@@ -144,6 +151,27 @@ export class DonationViewComponent {
         },
         (error) => this.presentToast(error)
       );
+  }
+
+  private loadDonationQRAndCall(callback: Function) {
+    if (!this.donation.follow) {
+      callback();
+      return;
+    }
+    this.barcodeScanner.scan().then(barcodeData => {
+      if (barcodeData.text === this.donation.uuid) {
+        callback();
+      } else {
+        this.modalCtrl.dismiss({
+          event: 'ERROR',
+          uuid: this.donation.uuid,
+          message: "El código QR no coincide con la donación"
+        })
+      }
+    }).catch(err => {
+      console.error(err);
+      this.presentToast(err);
+    });
   }
 
   async presentToast(message: string) {

@@ -23,15 +23,19 @@
         Marcar listo para viajar
       </ion-button>
       <ion-button *ngIf="withCancelCollect()" (click)="viewInMap()">
-        <ion-icon name="map-outline"></ion-icon>
+        <ion-icon slot="start" name="map-outline"></ion-icon>
         Ver en mapa
       </ion-button>
       <ion-button *ngIf="withCancelCollect()" (click)="markAsInTravel()">
-        <ion-icon name="hand-left-outline"></ion-icon>
-        Marcar como recolectado
+        <ion-icon slot="start" name="hand-left-outline"></ion-icon>
+        Marcar como recolectada
+      </ion-button>
+      <ion-button *ngIf="withMarkAsFinalized()" (click)="markAsFinalized()">
+        <ion-icon slot="start" name="golf"></ion-icon>
+        Marcar entregada
       </ion-button>
       <ion-button color="danger" *ngIf="withCancelCollect()" (click)="cancelCollect()">
-        <ion-icon name="close-outline"></ion-icon>
+        <ion-icon slot="start" name="close-outline"></ion-icon>
         Cancelar recolección
       </ion-button>
     </ion-col>

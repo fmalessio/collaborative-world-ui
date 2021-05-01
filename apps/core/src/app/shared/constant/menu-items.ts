@@ -33,6 +33,11 @@ export const menuItems: MenuItem[] = [
         icon: 'car',
         roles: [Role.COLLABORATOR]
     }, {
+        title: 'Recolectadas',
+        url: '/donation-list/collected',
+        icon: 'cube',
+        roles: [Role.COLLABORATOR]
+    }, {
         title: 'Notificaciones',
         url: '/notification-list',
         icon: 'chatbubble-ellipses',

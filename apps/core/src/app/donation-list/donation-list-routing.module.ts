@@ -21,6 +21,11 @@ const routes: Routes = [
     data: { states: [DONATION_STATE.PENDING_TO_COLLECT] }
   },
   {
+    path: 'collected',
+    component: SearchByDonatorComponent,
+    data: { states: [DONATION_STATE.IN_TRAVEL] }
+  },
+  {
     path: 'nearby',
     component: NearbyComponent
   }
